@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_myhome">
+
+    <fragment
+        android:id="@+id/navigation_myhome"
+        android:name="org.bitc.petpalapp.ui.myhome.MyhomeFragment"
+        android:label="내정보"
+        tools:layout="@layout/fragment_myhome" />
+
+    <fragment
+        android:id="@+id/navigation_petstargram"
+        android:name="org.bitc.petpalapp.ui.petstargram.PetstargramFragment"
+        android:label="펫스타그램"
+        tools:layout="@layout/fragment_petstargram" />
+
+    <fragment
+        android:id="@+id/navigation_maching"
+        android:name="org.bitc.petpalapp.ui.mypet.MachingFragment"
+        android:label="매칭현황"
+        tools:layout="@layout/fragment_hospital" />
+
+    <fragment
+        android:id="@+id/navigation_hospital"
+        android:name="org.bitc.petpalapp.ui.hospital.HospitalFragment"
+        android:label="동물병원"
+        tools:layout="@layout/fragment_hospital" />
+
+    <fragment
+        android:id="@+id/navigation_mypet"
+        android:name="org.bitc.petpalapp.ui.mypet.MypetFragment"
+        android:label="마이펫"
+        tools:layout="@layout/fragment_mypet" />
+</navigation>

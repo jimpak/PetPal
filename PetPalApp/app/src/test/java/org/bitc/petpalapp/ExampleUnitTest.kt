@@ -1,4 +1,4 @@
-package org.pjm.petpalapp
+package org.bitc.petpalapp
 
 import org.junit.Test
 
