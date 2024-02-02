@@ -26,4 +26,6 @@
         android:icon="@drawable/person_24px"
         android:title="내정보" />
 
+
+
 </menu>
