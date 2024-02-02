@@ -56,7 +56,16 @@ dependencies {
 
     // 네이버 클라우드 플랫폼 - 지도
     implementation("com.naver.maps:map-sdk:3.17.0")
-    // 파이어베이스
+    // 파이어베이스 - auth
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("androidx.multidex:multidex:2.0.1")
+    // 파이어베이스 - store, storage
+    implementation("com.google.firebase:firebase-firestore-ktx:24.0.0")
+    implementation("com.google.firebase:firebase-storage-ktx:20.0.0")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.firebaseui:firebase-ui-storage:8.0.0")
+    implementation("com.github.bumptech.glide:compiler:4.12.0")
 }
