@@ -28,7 +28,11 @@
         android:id="@+id/navigation_hospital"
         android:name="org.bitc.petpalapp.ui.hospital.HospitalFragment"
         android:label="동물병원"
-        tools:layout="@layout/fragment_hospital" />
+        tools:layout="@layout/fragment_hospital" >
+        <action
+            android:id="@+id/action_hospital_to_detail"
+            app:destination="@id/hospital_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_myhome"
@@ -41,7 +45,9 @@
         android:id="@+id/hospital_detail"
         android:name="org.bitc.petpalapp.ui.hospital.HospitalDetailFragment"
         android:label="fragment_input"
-        tools:layout="@layout/fragment_hospital_detail"/>
+        tools:layout="@layout/fragment_hospital_detail">
+
+    </fragment>
 
 
 </navigation>

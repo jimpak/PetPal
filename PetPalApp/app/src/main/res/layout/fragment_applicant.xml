@@ -1,149 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-=======
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
->>>>>>> 33575cc17ceec665bcfc5e093249c5ae26562bf0
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-<<<<<<< HEAD
     tools:context=".ui.mypet.ApplicantFragment" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="110dp"
-            android:layout_height="79dp"
-            android:layout_weight="1"
-            android:src="@drawable/person5" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="110dp"
+                android:layout_height="79dp"
+                android:layout_weight="1"
+                android:src="@drawable/person5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="댕이돌봄"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="닉네임"
+                    android:textSize="40sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:scaleType="fitXY"
+
+                android:src="@drawable/bubble_chat" />
+
+        </LinearLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:padding="30dp">
+
+
+            <TextView
+                android:id="@+id/servicetext1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_marginBottom="15dp"
+                android:text="제공 가능 서비스"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/servicetext2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_marginBottom="10dp"
+                android:text="산책 서비스" />
+
+            <TextView
+                android:id="@+id/servicetext3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_marginBottom="10dp"
+                android:text="신분증 확인" />
+
+            <TextView
+                android:id="@+id/servicetext4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:text="사전 만남" />
+
+            <TextView
+                android:id="@+id/servicetext5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:text="노견 케어" />
+        </GridLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
+                android:id="@+id/textView7"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="댕이돌봄"
-                android:textSize="16sp" />
+                android:text="소개글" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textView8"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="닉네임"
-                android:textSize="40sp" />
+                android:text="소개내용 주절주절주절  잘보살필 수 있습니다 등등등 하랄라라라 만나서 좋은 친구~~ "/>
         </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
-            android:scaleType="fitXY"
-
-            android:src="@drawable/bubble_chat" />
-
-    </LinearLayout>
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:orientation="horizontal"
-        android:padding="30dp">
-
-
-        <TextView
-            android:id="@+id/servicetext1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_marginBottom="15dp"
-            android:text="제공 가능 서비스"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/servicetext2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_marginBottom="10dp"
-            android:text="산책 서비스" />
-
-        <TextView
-            android:id="@+id/servicetext3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_marginBottom="10dp"
-            android:text="신분증 확인" />
-
-        <TextView
-            android:id="@+id/servicetext4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="2"
-            android:layout_column="0"
-            android:text="사전 만남" />
-
-        <TextView
-            android:id="@+id/servicetext5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="2"
-            android:layout_column="1"
-            android:text="노견 케어" />
-    </GridLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView7"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="소개글" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="소개내용 주절주절주절  잘보살필 수 있습니다 등등등 하랄라라라 만나서 좋은 친구~~ "/>
-    </LinearLayout>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -170,7 +165,7 @@
 
         android:src="@drawable/baseline_add_ic_call_24"
         app:maxImageSize="30dp"
-        app:tint= "#EFA5A5"
+        app:tint= "#FFADEB"
         android:backgroundTint="#9EDCFF"
         app:rippleColor="@color/white"
         android:textSize="20sp"
@@ -182,277 +177,3 @@
         android:layout_marginRight="240dp"/>
 
 </RelativeLayout>
-=======
-    android:padding="10dp"
-    tools:context=".ui.mypet.ApplicantFragment">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:text="뒤로가기" />
-
-        <TextView
-            android:id="@+id/tx_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="이름" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:src="@tools:sample/avatars" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tx1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="이름" />
-
-            <TextView
-                android:id="@+id/tx2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/tx3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="거리" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:text="돌봄횟수" />
-
-        <Button
-            android:id="@+id/btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:text="후기" />
-
-        <Button
-            android:id="@+id/btn3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="평균별점" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tx_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="돌봄가능 요일/시간" />
-    </LinearLayout>
-
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:columnCount="7"
-        android:rowCount="2"
-        android:layout_gravity="center">
-
-        <ImageView
-            android:id="@+id/img_day1"
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/img_day2"
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/img_day3"
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_row="0"
-            android:layout_column="2"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/img_day7"
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_row="0"
-            android:layout_column="6"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/img_day5"
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_row="0"
-            android:layout_column="4"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/img_day6"
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_row="0"
-            android:layout_column="5"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_home_black_24dp" />
-
-        <ImageView
-            android:id="@+id/img_day4"
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_row="0"
-            android:layout_column="3"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_home_black_24dp" />
-
-        <TextView
-            android:id="@+id/tx_day1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_gravity="center"
-            android:text="월" />
-
-        <TextView
-            android:id="@+id/tx_day2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:text="화" />
-
-        <TextView
-            android:id="@+id/tx_day3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="2"
-            android:layout_gravity="center"
-            android:text="수" />
-
-        <TextView
-            android:id="@+id/tx_day4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="3"
-            android:layout_gravity="center"
-            android:text="목" />
-
-        <TextView
-            android:id="@+id/tx_day5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="4"
-            android:layout_gravity="center"
-            android:text="금" />
-
-        <TextView
-            android:id="@+id/tx_day6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="5"
-            android:layout_gravity="center"
-            android:text="토" />
-
-        <TextView
-            android:id="@+id/tx_day7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="6"
-            android:layout_gravity="center"
-            android:text="일" />
-    </GridLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_talk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:text="펫봄톡" />
-
-        <Button
-            android:id="@+id/btn_app"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:text="돌봄신청" />
-    </LinearLayout>
-
-</LinearLayout>
->>>>>>> 33575cc17ceec665bcfc5e093249c5ae26562bf0
