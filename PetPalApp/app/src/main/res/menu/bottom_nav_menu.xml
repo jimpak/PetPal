@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_myhome"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="내정보" />
+        android:id="@+id/navigation_mypet"
+        android:icon="@drawable/footprint"
+        android:title="마이펫" />
 
     <item
         android:id="@+id/navigation_petstargram"
@@ -22,8 +22,8 @@
         android:title="병원안내" />
 
     <item
-        android:id="@+id/navigation_mypet"
-        android:icon="@drawable/footprint"
-        android:title="마이펫" />
+        android:id="@+id/navigation_myhome"
+        android:icon="@drawable/person_24px"
+        android:title="내정보" />
 
 </menu>

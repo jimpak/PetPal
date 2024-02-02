@@ -5,11 +5,12 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_myhome">
 
+
     <fragment
-        android:id="@+id/navigation_myhome"
-        android:name="org.bitc.petpalapp.ui.myhome.MyhomeFragment"
-        android:label="내정보"
-        tools:layout="@layout/fragment_myhome" />
+        android:id="@+id/navigation_mypet"
+        android:name="org.bitc.petpalapp.ui.mypet.MypetFragment"
+        android:label="마이펫"
+        tools:layout="@layout/fragment_mypet" />
 
     <fragment
         android:id="@+id/navigation_petstargram"
@@ -30,8 +31,9 @@
         tools:layout="@layout/fragment_hospital" />
 
     <fragment
-        android:id="@+id/navigation_mypet"
-        android:name="org.bitc.petpalapp.ui.mypet.MypetFragment"
-        android:label="마이펫"
-        tools:layout="@layout/fragment_mypet" />
+        android:id="@+id/navigation_myhome"
+        android:name="org.bitc.petpalapp.ui.myhome.MyhomeFragment"
+        android:label="내정보"
+        tools:layout="@layout/fragment_myhome" />
+
 </navigation>
