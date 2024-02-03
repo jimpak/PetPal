@@ -7,18 +7,38 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/LoginTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
         android:text="LOGIN"
+        android:visibility="gone"
         android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/JoinTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="JOIN"
+        android:visibility="gone"
+        android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/mainTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="" />
 
 
     <EditText
         android:id="@+id/editTextEmail"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
+        android:visibility="gone"
         android:hint="이메일" />
 
     <EditText
@@ -26,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
+        android:visibility="gone"
         android:hint="비밀번호"
         android:inputType="textPassword" />
 
@@ -33,7 +54,14 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="로그인" />
+        android:text="로그인"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/btnEmailSign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원가입"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,16 +71,19 @@
             android:id="@+id/btnFindId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.1"
             android:layout_marginBottom="16dp"
             android:textColor="@color/black"
             android:background="@android:color/transparent"
+            android:visibility="gone"
             android:text="아이디찾기" />
 
         <TextView
+            android:id="@+id/or1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" | "
+            android:visibility="gone"
             android:textColor="@color/black" />
 
         <Button
@@ -63,21 +94,25 @@
             android:layout_marginBottom="16dp"
             android:textColor="@color/black"
             android:background="@android:color/transparent"
+            android:visibility="gone"
             android:text="비밀번호찾기" />
 
         <TextView
+            android:id="@+id/or2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" | "
+            android:visibility="gone"
             android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.1"
             android:textColor="@color/black"
             android:background="@android:color/transparent"
+            android:visibility="gone"
             android:text="회원가입" />
     </LinearLayout>
 
@@ -86,6 +121,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:visibility="gone"
         android:text="구글 로그인" />
+
+
+
+    <FrameLayout
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_gravity="bottom|end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:text="PetPal 시작하기"/>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
