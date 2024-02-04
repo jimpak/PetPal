@@ -28,7 +28,7 @@ import org.bitc.petpalapp.databinding.FragmentHospitalBinding
 class HospitalFragment : Fragment(), OnMapReadyCallback {
     private var naverMap: NaverMap? = null
 
-    private var _binding: org.bitc.petpalapp.databinding.FragmentHospitalBinding? = null
+    private var _binding: FragmentHospitalBinding? = null
 
     private val binding get() = _binding!!
 
