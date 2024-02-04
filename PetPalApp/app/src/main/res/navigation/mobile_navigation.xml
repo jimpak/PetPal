@@ -10,15 +10,7 @@
         android:id="@+id/navigation_mypet"
         android:name="org.bitc.petpalapp.ui.mypet.MypetFragment"
         android:label="마이펫"
-        tools:layout="@layout/fragment_mypet">
-    <action
-        android:id="@+id/action_mypetFragment_to_petregiFragment"
-        app:destination="@id/mypet_reigster" />
-        <action
-            android:id="@+id/action_myFragment_to_detailFragment"
-            app:destination="@id/mypet_detail" />
-    </fragment>
-
+        tools:layout="@layout/fragment_mypet" />
 
     <fragment
         android:id="@+id/navigation_petstargram"
@@ -30,7 +22,7 @@
         android:id="@+id/navigation_maching"
         android:name="org.bitc.petpalapp.ui.mypet.MachingFragment"
         android:label="매칭현황"
-        tools:layout="@layout/fragment_maching" />
+        tools:layout="@layout/fragment_hospital" />
 
     <fragment
         android:id="@+id/navigation_hospital"
@@ -39,7 +31,7 @@
         tools:layout="@layout/fragment_hospital" >
         <action
             android:id="@+id/action_hospital_to_detail"
-            app:destination="@id/hospital_detail"/>
+            app:destination="@id/hospital_detail" />
     </fragment>
 
     <fragment
@@ -52,23 +44,10 @@
     <fragment
         android:id="@+id/hospital_detail"
         android:name="org.bitc.petpalapp.ui.hospital.HospitalDetailFragment"
-        android:label="병원 상세"
-        tools:layout="@layout/fragment_hospital_detail"/>
-
-    <fragment
-        android:id="@+id/mypet_reigster"
-        android:name="org.bitc.petpalapp.ui.mypet.PetRegisterFragment"
-        android:label="마이펫 등록"
-        tools:layout="@layout/fragment_pet_register">
+        android:label="fragment_input"
+        tools:layout="@layout/fragment_hospital_detail">
 
     </fragment>
-
-
-    <fragment
-        android:id="@+id/mypet_detail"
-        android:name="org.bitc.petpalapp.ui.mypet.PetDetailFragment"
-        android:label="마이펫 상세"
-        tools:layout="@layout/fragment_pet_detail"/>
 
 
 </navigation>

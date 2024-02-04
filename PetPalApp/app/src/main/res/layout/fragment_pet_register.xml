@@ -8,34 +8,28 @@
     android:orientation="vertical"
     tools:context=".ui.mypet.PetRegisterFragment" >
 
-
-
     <RelativeLayout
         android:layout_width="368dp"
         android:layout_height="wrap_content">
 
-
         <ImageView
-            android:id="@+id/imgresult"
+            android:id="@+id/profileImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src ="@drawable/ic_launcher_background"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp">
-
-        </ImageView>
-
+            android:layout_marginTop="32dp"
+            tools:src="@tools:sample/avatars" />
 
         <!-- 프로필 이미지 변경 버튼 -->
         <Button
             android:id="@+id/changeProfileImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgresult"
+            android:layout_below="@id/profileImageView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:text="프로필사진변경"
-            />
+            android:onClick="onChangeProfileImageClick"
+            android:text="프로필사진변경" />
 
 
     </RelativeLayout>
@@ -241,13 +235,6 @@
             android:text="" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnRegister2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="등록" />
 
 
 </LinearLayout>
