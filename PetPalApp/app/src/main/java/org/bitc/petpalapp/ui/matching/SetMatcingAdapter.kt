@@ -42,10 +42,12 @@ class setMatchingAdapter(val context: Context, val itemList:MutableList<Applicat
 
         holder.binding.acceptbtn.setOnClickListener {
             updateStore(data.docId.toString())
+            holder.binding.run{
+                acceptbtn.visibility = View.INVISIBLE
+                accpettext.visibility= View.VISIBLE
+            }
 
         }
-
-
 
     }
 
@@ -63,9 +65,8 @@ class setMatchingAdapter(val context: Context, val itemList:MutableList<Applicat
         MyApplication.db.collection("applications").document(docId)
             .set(application)
             .addOnSuccessListener {
+
                 Log.d("Firestore", "Document updated with ID: $docId")
-
-
             }
             .addOnFailureListener {
                 Log.d("kkang", "data update error", it)
