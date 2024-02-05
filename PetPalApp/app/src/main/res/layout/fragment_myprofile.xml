@@ -22,15 +22,13 @@
         <!-- 프로필 이미지 변경 버튼 -->
         <Button
             android:id="@+id/changeProfileImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
             android:layout_below="@id/profileImageView"
-            android:layout_al="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="-56dp"
-            android:layout_marginRight="-4dp"
-            android:onClick="onChangeProfileImageClick"
-            android:text="프로필사진변경" />
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="-43dp"
+            android:background="@drawable/profilechange"
+            android:onClick="onChangeProfileImageClick" />
 
 
     </RelativeLayout>
