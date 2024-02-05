@@ -12,7 +12,7 @@
         android:title="펫스타그램" />
 
     <item
-        android:id="@+id/navigation_maching"
+        android:id="@+id/navigation_machingstatus"
         android:icon="@drawable/join_inner_24px"
         android:title="매칭현황" />
 

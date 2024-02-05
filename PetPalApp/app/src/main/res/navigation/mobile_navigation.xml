@@ -19,10 +19,10 @@
         tools:layout="@layout/fragment_petstargram" />
 
     <fragment
-        android:id="@+id/navigation_maching"
-        android:name="org.bitc.petpalapp.ui.mypet.MachingFragment"
+        android:id="@+id/navigation_machingstatus"
+        android:name="org.bitc.petpalapp.ui.matching.MatcingStatusFragment"
         android:label="매칭현황"
-        tools:layout="@layout/fragment_hospital" />
+        tools:layout="@layout/fragment_matcing_status" />
 
     <fragment
         android:id="@+id/navigation_hospital"
@@ -38,16 +38,45 @@
         android:id="@+id/navigation_myhome"
         android:name="org.bitc.petpalapp.ui.myhome.MyhomeFragment"
         android:label="내정보"
-        tools:layout="@layout/fragment_myhome" />
+        tools:layout="@layout/fragment_myhome" >
+        <action
+            android:id="@+id/action_myhomeFragment_to_careRegisterFragment"
+            app:destination="@id/care_register" />
+        <action
+            android:id="@+id/action_myhomeFragment_to_petsitterListRegisterFragment"
+            app:destination="@id/petsitter_list" />
+    </fragment>
 
 
     <fragment
         android:id="@+id/hospital_detail"
         android:name="org.bitc.petpalapp.ui.hospital.HospitalDetailFragment"
-        android:label="fragment_input"
+        android:label="병원 상세"
         tools:layout="@layout/fragment_hospital_detail">
 
     </fragment>
 
+    <fragment
+        android:id="@+id/care_register"
+        android:name="org.bitc.petpalapp.ui.myhome.CareRegisterFragment"
+        android:label="돌보미 등록"
+        tools:layout="@layout/fragment_care_register" />
+
+
+    <fragment
+        android:id="@+id/petsitter_list"
+        android:name="org.bitc.petpalapp.ui.mypet.MachingFragment"
+        android:label="돌보미 리스트"
+        tools:layout="@layout/fragment_maching" >
+        <action
+            android:id="@+id/action_matchingFragment_to_petsitterDetailFragment"
+            app:destination="@id/petsitter_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/petsitter_detail"
+        android:name="org.bitc.petpalapp.ui.mypet.ApplicantFragment"
+        android:label="돌보미 상세"
+        tools:layout="@layout/fragment_applicant" />
 
 </navigation>
