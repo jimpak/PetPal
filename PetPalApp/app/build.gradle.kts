@@ -65,14 +65,17 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("androidx.multidex:multidex:2.0.1")
 
-    
     // 파이어베이스 - store, storage
     implementation("com.google.firebase:firebase-firestore-ktx:24.0.0")
     implementation("com.google.firebase:firebase-storage-ktx:20.0.0")
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.firebaseui:firebase-ui-storage:8.0.0")
 
-
-    //파이어베이스 - realtime database
+    // 파이어베이스 - realtime database
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.google.code.gson:gson:2.8.8")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
