@@ -35,6 +35,4 @@ class PetstargramFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }
