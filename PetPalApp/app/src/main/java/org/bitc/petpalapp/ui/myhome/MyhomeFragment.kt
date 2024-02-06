@@ -44,6 +44,10 @@ class MyhomeFragment : Fragment() {
             findNavController().navigate(R.id.action_myhomeFragment_to_petsitterListRegisterFragment)
         }
 
+        binding.btnRe.setOnClickListener {
+            findNavController().navigate(R.id.action_myhomeFragment_to_Myprofile)
+        }
+
     }
 
     override fun onDestroyView() {

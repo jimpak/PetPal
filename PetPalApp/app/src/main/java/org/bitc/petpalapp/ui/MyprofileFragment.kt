@@ -60,7 +60,7 @@ class MyprofileFragment : Fragment() {
                     .centerCrop()
                     .into(binding.profileImageView)
 
-                val cursor = contentResolver.query(it.data?.data as Uri,
+                val cursor = requireActivity().contentResolver.query(it.data?.data as Uri,
                     arrayOf<String>(MediaStore.Images.Media.DATA), null, null,null);
                 cursor?.moveToFirst().let{
                     filePath=cursor?.getString(0) as String

@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_myhomeFragment_to_petsitterListRegisterFragment"
             app:destination="@id/petsitter_list" />
+        <action
+            android:id="@+id/action_myhomeFragment_to_Myprofile"
+            app:destination="@id/user_myprofile" />
     </fragment>
 
 
@@ -78,5 +81,11 @@
         android:name="org.bitc.petpalapp.ui.mypet.ApplicantFragment"
         android:label="돌보미 상세"
         tools:layout="@layout/fragment_applicant" />
+
+    <fragment
+        android:id="@+id/user_myprofile"
+        android:name="org.bitc.petpalapp.ui.MyprofileFragment"
+        android:label="프로필 입력"
+        tools:layout="@layout/fragment_myprofile" />
 
 </navigation>
