@@ -18,25 +18,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/writeImageRecycler"
-        android:layout_marginBottom="40dp"
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/writeImageRecycler"-->
+<!--        android:layout_marginBottom="40dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        />-->
+
+
+    <ImageView
+        android:id="@+id/petstarImg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:src="@tools:sample/avatars" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/etPetstar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
         android:hint="내용을 입력하세요." />
+    <Button
+        android:id="@+id/galleyOpen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="갤러리 이동" />
 
     <Button
-        android:id="@+id/instarupload"
+        android:id="@+id/petStarUpload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Upload" />
+
+
 
 
 </LinearLayout>
