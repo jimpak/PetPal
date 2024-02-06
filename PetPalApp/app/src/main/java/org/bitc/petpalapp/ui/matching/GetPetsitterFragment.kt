@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentGetPetsitterBinding
-import org.bitc.petpalapp.databinding.FragmentMatcingStatusBinding
+
 import org.bitc.petpalapp.ui.myhome.PetsitterItem
 import org.bitc.petpalapp.ui.mypet.util.ApplicationItem
-import org.bitc.petpalapp.ui.mypet.util.MyAdapter
+
 
 
 class GetPetsitterFragment : Fragment() {
@@ -30,7 +30,6 @@ class GetPetsitterFragment : Fragment() {
     ): View? {
         _binding = FragmentGetPetsitterBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
 
         return root
     }
