@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentMatcingStatusBinding
+import org.bitc.petpalapp.recyclerviewAdapter.ViewPagerAdapter
 
 
 class MatcingStatusFragment : Fragment() {

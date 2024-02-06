@@ -1,4 +1,4 @@
-package org.bitc.petpalapp.ui.mypet.util
+package org.bitc.petpalapp.model
 
 data class ApplicationItem(
     var docId: String? = null,

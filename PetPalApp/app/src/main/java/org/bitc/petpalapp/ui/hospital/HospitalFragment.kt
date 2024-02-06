@@ -5,13 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.databinding.FragmentHospitalBinding
 import org.bitc.petpalapp.RetrofitApplication
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class HospitalFragment : Fragment() {
 

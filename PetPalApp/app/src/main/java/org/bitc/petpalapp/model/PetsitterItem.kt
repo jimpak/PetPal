@@ -1,4 +1,4 @@
-package org.bitc.petpalapp.ui.myhome
+package org.bitc.petpalapp.model
 
 data class PetsitterItem(
     var userdocid : String? =null,

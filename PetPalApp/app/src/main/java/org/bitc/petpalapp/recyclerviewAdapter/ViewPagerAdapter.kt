@@ -1,4 +1,4 @@
-package org.bitc.petpalapp.ui.matching
+package org.bitc.petpalapp.recyclerviewAdapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

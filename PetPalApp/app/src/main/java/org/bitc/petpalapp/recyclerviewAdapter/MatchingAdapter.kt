@@ -1,4 +1,4 @@
-package org.bitc.petpalapp.ui.matching
+package org.bitc.petpalapp.recyclerviewAdapter
 
 import android.content.Context
 import android.util.Log
@@ -8,11 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.databinding.GetMatchingItemBinding
-import org.bitc.petpalapp.databinding.MachingItemBinding
+import org.bitc.petpalapp.model.ApplicationItem
 import org.bitc.petpalapp.model.UserInfo
-import org.bitc.petpalapp.ui.myhome.PetsitterItem
-import org.bitc.petpalapp.ui.mypet.util.ApplicationItem
-import org.bitc.petpalapp.ui.mypet.util.OnItemClickListener
 
 class GetMacthingViewHolder(val binding: GetMatchingItemBinding) :
     RecyclerView.ViewHolder(binding.root)

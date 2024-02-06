@@ -1,4 +1,4 @@
-package org.bitc.petpalapp
+package org.bitc.petpalapp.recyclerviewAdapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import org.bitc.petpalapp.R
+import org.bitc.petpalapp.model.Message
 
 
 class MessageAdapter(private val context: Context, private val messageList: ArrayList<Message>):

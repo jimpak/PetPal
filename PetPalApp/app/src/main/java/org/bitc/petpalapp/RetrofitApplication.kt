@@ -1,7 +1,6 @@
 package org.bitc.petpalapp
 
 import android.app.Application
-import com.bumptech.glide.Glide.init
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

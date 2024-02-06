@@ -1,4 +1,4 @@
-package org.bitc.petpalapp.ui.mypet.util
+package org.bitc.petpalapp.recyclerviewAdapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,8 @@ import com.bumptech.glide.Glide
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.databinding.MachingItemBinding
 
-import org.bitc.petpalapp.ui.myhome.PetsitterItem
+import org.bitc.petpalapp.model.PetsitterItem
+import org.bitc.petpalapp.ui.mypet.util.OnItemClickListener
 
 
 class PetsitterViewHolder(val binding: MachingItemBinding) : RecyclerView.ViewHolder(binding.root)

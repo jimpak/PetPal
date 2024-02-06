@@ -1,29 +1,24 @@
 package org.bitc.petpalapp.ui.mypet
 
-import android.app.Activity
 import android.content.Intent
-import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
+import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+
+
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import org.bitc.petpalapp.ChatActivity
 import org.bitc.petpalapp.MyApplication
-import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentApplicantBinding
-import org.bitc.petpalapp.databinding.FragmentPetDetailBinding
 import org.bitc.petpalapp.model.UserInfo
-import org.bitc.petpalapp.ui.myhome.PetsitterItem
-import org.bitc.petpalapp.ui.mypet.util.ApplicationItem
-import java.io.File
+import org.bitc.petpalapp.model.PetsitterItem
+import org.bitc.petpalapp.model.ApplicationItem
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -48,6 +43,7 @@ class ApplicantFragment : Fragment() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -120,6 +116,7 @@ class ApplicantFragment : Fragment() {
         binding.openChatBtn.setOnClickListener {
             val intent = Intent(activity, ChatActivity::class.java)
             //넘길 데이터
+            intent.putExtra("appliernickname", appliernickname)
             intent.putExtra("petsitternickname", petsitternickname)
             intent.putExtra("petsttteruid", petsitterId)
             startActivity(intent)

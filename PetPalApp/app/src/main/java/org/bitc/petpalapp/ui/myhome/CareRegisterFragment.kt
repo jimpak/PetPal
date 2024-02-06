@@ -1,20 +1,15 @@
 package org.bitc.petpalapp.ui.myhome
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import org.bitc.petpalapp.MyApplication
-import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentCareRegisterBinding
+import org.bitc.petpalapp.model.PetsitterItem
 import org.bitc.petpalapp.model.UserInfo
-
-import java.util.Date
 
 class CareRegisterFragment : Fragment() {
 

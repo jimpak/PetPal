@@ -9,10 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.bitc.petpalapp.MyApplication
-import org.bitc.petpalapp.R
-import org.bitc.petpalapp.databinding.FragmentGetPetsitterBinding
 import org.bitc.petpalapp.databinding.FragmentSetPetsitterBinding
-import org.bitc.petpalapp.ui.mypet.util.ApplicationItem
+import org.bitc.petpalapp.model.ApplicationItem
+import org.bitc.petpalapp.recyclerviewAdapter.setMatchingAdapter
 
 
 class SetPetsitterFragment : Fragment()  {

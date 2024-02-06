@@ -10,53 +10,45 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
-
-import org.bitc.petpalapp.databinding.ActivityChatBinding
+import org.bitc.petpalapp.databinding.ActivityChatTestBinding
+import org.bitc.petpalapp.model.ChatRoom
+import org.bitc.petpalapp.model.Messages
 import org.bitc.petpalapp.model.UserInfo
+import org.bitc.petpalapp.recyclerviewAdapter.MessageAdapter2
+
 
 class ChatActivity : AppCompatActivity() {
-
-    private lateinit var receiverName: String
+    private lateinit var receiverNickName: String
     private lateinit var receiverUid: String
+    private val messageList = mutableListOf<Messages>()
 
     //바인딩 객체
-    private lateinit var binding: ActivityChatBinding
+    private lateinit var binding: ActivityChatTestBinding
 
     private lateinit var auth: FirebaseAuth //인증 객체
     private lateinit var rdb: DatabaseReference //DB 객체
 
-    private lateinit var receiverRoom: String //받는 대화방
-    private lateinit var senderRoom: String // 보낸 대화방
 
-    private lateinit var messageList: ArrayList<Message>
-    private lateinit var senderNickname: String
+    private lateinit var senderNickName: String
     private lateinit var senderUid: String
+    private lateinit var messageAdapter: MessageAdapter2
 
-
+    private lateinit var roomId: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChatBinding.inflate(layoutInflater)
+        binding = ActivityChatTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        초기화
-        messageList = ArrayList()
-        val messageAdapter: MessageAdapter = MessageAdapter(this, messageList)
 
-        //리사이클러뷰
-        binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.chatRecyclerView.adapter = messageAdapter
+    }
 
-        //넘어온 데이터 변수에 담기
+    override fun onStart() {
 
-        receiverName = intent.getStringExtra("petsitternickname").toString()
-        receiverUid = intent.getStringExtra("petsttteruid").toString()
 
-        Log.d("Uid", "$receiverUid")
-
+        super.onStart()
+        //초기화
         auth = FirebaseAuth.getInstance()
         rdb = FirebaseDatabase.getInstance().reference
-
 
         MyApplication.db.collection("users")
             .whereEqualTo("email", MyApplication.email)
@@ -64,65 +56,159 @@ class ChatActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     val user = document.toObject(UserInfo::class.java)
-                    senderNickname = user.nickname.toString()
+                    senderNickName = user.nickname.toString()
                     senderUid = MyApplication.email.toString()
 
+                    //넘어온 데이터 변수에 담기
+                    receiverNickName = intent.getStringExtra("petsitternickname").toString()
+                    receiverUid = intent.getStringExtra("petsttteruid").toString()
 
-                    //보낸이방
-                    senderRoom = receiverName + senderNickname
 
+                    val message = binding.edtMessage.text.toString()
+                    // 채팅방이 이미 존재하는지 확인하고, 존재한다면 해당 채팅방 ID를 가져옴
+                    roomId = getExistingChatRoomId(senderNickName, receiverNickName, message)
 
-                    //받는이방
-                    receiverRoom = senderNickname + receiverName
+                    messageAdapter = MessageAdapter2(this, messageList, senderNickName)
+                    //리사이클러뷰
+                    binding.recyclerMessages.layoutManager = LinearLayoutManager(this)
+                    binding.recyclerMessages.adapter = messageAdapter
+
+                    Log.d("Uid", "$receiverUid")
 
 
                     //액션바에 상대방 이름 보여주기
-                    supportActionBar?.title = receiverName
+                    supportActionBar?.title = "To.${receiverNickName}"
 
+                    receiveMessages(roomId, messageList, messageAdapter)
 
-                    binding.sendBtn.setOnClickListener {
-                        val message = binding.messageEdit.text.toString()
-                        val messageObject = Message(message, senderUid)
-
-                        //데이터 저장
-                        rdb.child("chats").child(senderRoom).child("messages").push()
-                            .setValue(messageObject).addOnSuccessListener {
-                                //저장 성공하면
-                                rdb.child("chats").child(receiverRoom).child("messages").push()
-                                    .setValue(messageObject)
-                            }
-
+                    binding.btnSubmit.setOnClickListener {
+                        val message = binding.edtMessage.text.toString()
+                        if (roomId == "-1") {
+                            val roomid = createChatRoom(senderNickName, receiverNickName, message)
+                            receiveMessages(roomid, messageList, messageAdapter)
+                        } else {
+                            sendMessage(roomId, senderNickName, message)
+                            // 메시지 수신 및 RecyclerView 업데이트
+                            receiveMessages(roomId, messageList, messageAdapter)
+                        }
                         //입력값 초기화
-                        binding.messageEdit.setText("")
+                        binding.edtMessage.setText("")
+
                     }
-
-                    //메시지 가져오기
-                    rdb.child("chats").child(senderRoom).child("messages")
-                        .addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                messageList.clear()
-
-                                for (postSnapshot in snapshot.children) {
-
-                                    val message = postSnapshot.getValue(Message::class.java)
-                                    messageList.add(message!!)
-                                }
-                                //적용
-                                messageAdapter.notifyDataSetChanged()
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {
-
-                            }
-                        })
-
 
                 }
             }
-            .addOnFailureListener { exception ->
-                Log.d("aaa", "서버 데이터 획득 실패", exception)
-            }
-
-
     }
+
+
+    // 메시지 전송 함수
+    fun sendMessage(roomId: String, senderId: String, text: String) {
+        val timestamp = System.currentTimeMillis()
+        val messages = Messages(senderId, text, timestamp)
+        //초기화
+        val rdb = FirebaseDatabase.getInstance().reference
+
+        // chatrooms/{roomId}/messages 경로에 메시지 정보 저장
+        rdb.child("chatrooms").child(roomId).child("messages").push().setValue(messages)
+    }
+
+    // 메시지 수신 및 리사이클러뷰 업데이트 함수
+    fun receiveMessages(
+        roomId: String,
+        messageList: MutableList<Messages>,
+        adapter: MessageAdapter2
+    ) {
+        //초기화
+        val rdb = FirebaseDatabase.getInstance().reference
+        // chatrooms/{roomId}/messages 경로에 대한 ValueEventListener 등록
+        rdb.child("chatrooms").child(roomId).child("messages")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    messageList.clear()
+
+                    for (postSnapshot in snapshot.children) {
+                        val message = postSnapshot.getValue(Messages::class.java)
+                        message?.let {
+                            messageList.add(it)
+                        }
+                    }
+
+                    // 리사이클러뷰 업데이트
+                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // 처리 중 오류 발생 시 처리
+                }
+            })
+    }
+
+    // 채팅룸 생성 및 메시지 전송
+    fun createChatRoom(participant1: String, participant2: String, text: String): String {
+        val participants = listOf(participant1, participant2).sorted()
+        val roomId = participants.joinToString("_")
+
+        val chatRoom = ChatRoom(roomId, participants)
+
+        // chatrooms 경로에 채팅룸 정보 저장
+        //초기화
+        val rdb = FirebaseDatabase.getInstance().reference
+        rdb.child("chatrooms").child(roomId).setValue(chatRoom)
+
+        // 메시지 전송
+        //participant1가 sender
+        sendMessage(roomId, participant1, text)
+        return roomId
+    }
+
+
+    // 기존에 생성된 채팅방이 있는지 확인하고, 있다면 해당 채팅방의 ID를 반환
+    private fun getExistingChatRoomId(
+        participant1: String,
+        participant2: String,
+        messsage: String
+    ): String {
+        val participants = listOf(participant1, participant2).sorted()
+        var roomId = participants.joinToString("_")
+
+        //초기화
+        val rdb = FirebaseDatabase.getInstance().reference
+        // chatrooms/{roomId} 경로에 대한 ValueEventListener 등록
+        rdb.child("chatrooms").child(roomId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        // 채팅방이 이미 존재하는 경우
+                        // 해당 채팅방의 ID를 저장
+                        val existingRoomId =
+                            snapshot.child("roomId").getValue(String::class.java) ?: ""
+                        roomId = existingRoomId
+
+
+                    } else {
+                        // 채팅방이 존재하지 않는 경우
+
+                        roomId = "-1"
+
+                    }
+
+                    var messageList = mutableListOf<Messages>()
+                    messageList = mutableListOf()
+
+                    val messageAdapter =
+                        MessageAdapter2(ChatActivity(), messageList, participant1)
+
+                    // 초기 메시지 수신 및 RecyclerView 업데이트
+                    receiveMessages(roomId, messageList, messageAdapter)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // 처리 중 오류 발생 시 처리
+                }
+            }
+            )
+        return roomId
+    }
+
 }
+

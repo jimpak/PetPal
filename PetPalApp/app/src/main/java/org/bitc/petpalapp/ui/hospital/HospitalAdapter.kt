@@ -1,13 +1,10 @@
 package org.bitc.petpalapp.ui.hospital
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.HospitalItemBinding
 
 

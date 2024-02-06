@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentMachingBinding
-import org.bitc.petpalapp.ui.myhome.PetsitterItem
+import org.bitc.petpalapp.model.PetsitterItem
 
 import org.bitc.petpalapp.ui.mypet.util.OnItemClickListener
-import org.bitc.petpalapp.ui.mypet.util.PetsiiterAdapter
+import org.bitc.petpalapp.recyclerviewAdapter.PetsiiterAdapter
 
 class MachingFragment : Fragment() , OnItemClickListener {
 
