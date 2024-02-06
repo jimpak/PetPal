@@ -86,6 +86,10 @@
         android:id="@+id/user_myprofile"
         android:name="org.bitc.petpalapp.ui.MyprofileFragment"
         android:label="프로필 입력"
-        tools:layout="@layout/fragment_myprofile" />
+        tools:layout="@layout/fragment_myprofile" >
+        <action
+            android:id="@+id/action_Myprofile_to_myhome"
+            app:destination="@id/navigation_myhome" />
+    </fragment>
 
 </navigation>
