@@ -25,7 +25,6 @@ class MyAdapter(val context: Context, val itemList:MutableList<PetsitterItem>, p
         holder.binding.run{
             machingNickname.text = "${data.petsitternickname}"
             machingType.text=data.caretype
-
         }
 
 //        val imgRef = MyApplication.storage.reference.child("images/${data.docId}.jpg")

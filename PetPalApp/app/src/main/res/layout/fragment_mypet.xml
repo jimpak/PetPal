@@ -16,66 +16,31 @@
             android:id="@+id/textmypet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center_horizontal"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="21dp"
             android:text="마이펫"
             android:textSize="30sp"
             android:textStyle="bold" />
 
+        <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="마이펫리스트" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="마이펫리스트" />
-                <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/petRecyclerView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="20dp">
 
-                    <ImageView
-                        android:id="@+id/petImg"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:id="@+id/textName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="이름" />
-
-                    <TextView
-                        android:id="@+id/textType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="타입" />
-
-                    <TextView
-                        android:id="@+id/textXY"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="성별 " />
-
-                    <TextView
-                        android:id="@+id/textAge"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="나이" />
-                </LinearLayout>
-
-            </LinearLayout>
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
         <LinearLayout

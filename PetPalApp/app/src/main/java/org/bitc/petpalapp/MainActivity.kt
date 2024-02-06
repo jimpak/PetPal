@@ -1,8 +1,13 @@
 package org.bitc.petpalapp
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -11,16 +16,16 @@ import org.bitc.petpalapp.MyApplication.Companion.checkAuth
 import org.bitc.petpalapp.databinding.ActivityMainBinding
 import org.bitc.petpalapp.ui.myhome.myCheckPermission
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        myCheckPermission(this)
+
 
         myCheckPermission(this)
 

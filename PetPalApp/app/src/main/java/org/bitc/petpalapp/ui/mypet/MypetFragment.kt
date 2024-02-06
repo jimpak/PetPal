@@ -1,14 +1,22 @@
 package org.bitc.petpalapp.ui.mypet
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
+import org.bitc.petpalapp.databinding.FragmentMypetBinding
+import org.bitc.petpalapp.ui.mypet.util.OnItemClickListener
+import org.bitc.petpalapp.ui.mypet.utils.MyAdapter
 
-class MypetFragment : Fragment() {
+class MypetFragment : Fragment(), OnItemClickListener {
+    lateinit var binding: FragmentMypetBinding
 
     companion object {
         fun newInstance() = MypetFragment()
@@ -20,13 +28,50 @@ class MypetFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_mypet, container, false)
+        binding = FragmentMypetBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MypetViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        makeRecyclerView()
+
+        binding.petInsert.setOnClickListener {
+            findNavController().navigate(R.id.action_mypetFragment_to_petregiFragment)
+        }
+
+
+    }
+
+
+    fun makeRecyclerView() {
+        MyApplication.db.collection("pets")
+            .whereEqualTo("email",MyApplication.email)
+            .get()
+            .addOnSuccessListener { result ->
+                val itemList = mutableListOf<PetData>()
+                for (document in result) {
+                    val item = document.toObject(PetData::class.java)
+                    item.petId = document.id
+                    itemList.add(item)
+                }
+                binding.petRecyclerView.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                binding.petRecyclerView.adapter =
+                    MyAdapter(requireContext(), itemList, this)
+            }
+            .addOnFailureListener { exception ->
+                Log.d("kkang", "error..getting document..", exception)
+            }
+    }
+
+    override fun onItemClick(petId: String?) {
+
+        val bundle = bundleOf("petId" to petId)
+
+        findNavController().navigate(R.id.action_myFragment_to_detailFragment, bundle)
     }
 
 }

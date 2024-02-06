@@ -1,6 +1,5 @@
 package org.bitc.petpalapp.ui.mypet
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,12 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentMachingBinding
-import org.bitc.petpalapp.ui.myhome.MyhomeViewModel
 import org.bitc.petpalapp.ui.myhome.PetsitterItem
 import org.bitc.petpalapp.ui.mypet.util.MyAdapter
 import org.bitc.petpalapp.ui.mypet.util.OnItemClickListener
 
-class MachingFragment : Fragment() ,OnItemClickListener {
+class MachingFragment : Fragment() , OnItemClickListener {
 
     private var _binding: FragmentMachingBinding? = null
     private val binding get() = _binding!!
