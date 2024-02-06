@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.bitc.petpalapp.R
-import org.bitc.petpalapp.databinding.FragmentApplicantBinding
 import org.bitc.petpalapp.databinding.FragmentMatcingStatusBinding
+
 
 class MatcingStatusFragment : Fragment() {
     private var _binding: FragmentMatcingStatusBinding? = null
@@ -30,8 +30,8 @@ class MatcingStatusFragment : Fragment() {
 
     private fun setupViewPager() {
         val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(GetPetsitterFragment(), "내가받은돌봄")
-        adapter.addFragment(SetPetsitterFragment(), "내가한돌봄")
+        adapter.addFragment(GetPetsitterFragment(), "내가신청한")
+        adapter.addFragment(SetPetsitterFragment(), "나를신청한")
         binding.viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
@@ -40,6 +40,5 @@ class MatcingStatusFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }

@@ -14,8 +14,9 @@ import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentMachingBinding
 import org.bitc.petpalapp.ui.myhome.PetsitterItem
-import org.bitc.petpalapp.ui.mypet.util.MyAdapter
+
 import org.bitc.petpalapp.ui.mypet.util.OnItemClickListener
+import org.bitc.petpalapp.ui.mypet.util.PetsiiterAdapter
 
 class MachingFragment : Fragment() , OnItemClickListener {
 
@@ -61,7 +62,7 @@ class MachingFragment : Fragment() , OnItemClickListener {
                     itemList.add(item)
                 }
                 binding.matcingRecyclerView.layoutManager= LinearLayoutManager(requireContext())
-                binding.matcingRecyclerView.adapter = MyAdapter(requireContext(), itemList, this)
+                binding.matcingRecyclerView.adapter = PetsiiterAdapter(requireContext(), itemList, this)
                 binding.matcingRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
                 )
             }

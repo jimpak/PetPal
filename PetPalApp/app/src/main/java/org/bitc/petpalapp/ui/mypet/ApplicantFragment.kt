@@ -1,5 +1,6 @@
 package org.bitc.petpalapp.ui.mypet
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
@@ -14,10 +15,12 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import org.bitc.petpalapp.ChatActivity
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentApplicantBinding
 import org.bitc.petpalapp.databinding.FragmentPetDetailBinding
+import org.bitc.petpalapp.model.UserInfo
 import org.bitc.petpalapp.ui.myhome.PetsitterItem
 import org.bitc.petpalapp.ui.mypet.util.ApplicationItem
 import java.io.File
@@ -26,7 +29,10 @@ import java.util.Date
 
 class ApplicantFragment : Fragment() {
     private var _binding: FragmentApplicantBinding? = null
-    private var petsitterId : String? = null
+    private var petsitterId: String? = null
+    private var userdocid: String? = null
+    private var petsitternickname: String? = null
+    private var appliernickname: String? = null
 
     lateinit var docId: String
     private val binding get() = _binding!!
@@ -38,8 +44,6 @@ class ApplicantFragment : Fragment() {
     ): View {
         _binding = FragmentApplicantBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
         return root
     }
 
@@ -57,28 +61,42 @@ class ApplicantFragment : Fragment() {
                 .addOnSuccessListener { documentSnapshot ->
                     val item = documentSnapshot.toObject(PetsitterItem::class.java)
 
+                    //'신청' db 저장용 펫시어터 아이디 얻기
+                    userdocid = item?.userdocid
+                    petsitternickname = item?.petsitternickname
+                    petsitterId = item?.petsitterId
+
+                    //view에 데이터 넣기
                     binding.tvresultNickname.setText(item?.petsitternickname)
                     binding.tvresultType.setText(item?.caretype)
                     binding.resiltAddress.text = item?.address
-                    binding.resiltMyinfo.text= item?.myinfo
+                    binding.resiltMyinfo.text = item?.myinfo
 
-                    if (item?.service1!=null) {
+                    if (item?.service1 != null) {
                         binding.servicetext1.text = "⌨신분증 제공"
                     }
 
-                    if (item?.service2!=null) {
+                    if (item?.service2 != null) {
                         binding.servicetext2.text = "✨놀아주기"
                     }
 
-                    if (item?.service1!=null) {
+                    if (item?.service1 != null) {
                         binding.servicetext1.text = "🎠산책 서비스"
                     }
-                    if (item?.service1!=null) {
-                        binding.servicetext1.text = "❣노견 케어"
+                    if (item?.service1 != null) {
+                        binding.servicetext1.text = "❣건강 케어"
                     }
 
-                    //'신청' db 저장용 펫시어터 아이디 얻기
-                    petsitterId = item?.petsitterId
+                    //펫시터의 프로필 이미지 넣기
+                    val imgRef = MyApplication.storage.reference.child("images/${userdocid}.jpg")
+                    imgRef.downloadUrl.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Glide.with(requireContext())
+                                .load(task.result)
+                                .into(binding.petsitterProfileimg)
+                        }
+                    }
+
                 }
 
                 .addOnFailureListener { Exception ->
@@ -90,31 +108,72 @@ class ApplicantFragment : Fragment() {
             Log.e("bbb", "No docId received.")
         }
 
+
+        //돌보미 받기 신청
         binding.addFab.setOnClickListener {
             saveApplication()
             Toast.makeText(requireContext(), "신청 완료!!", Toast.LENGTH_SHORT).show()
         }
-    }
+
+
+        //채팅방 열기
+        binding.openChatBtn.setOnClickListener {
+            val intent = Intent(activity, ChatActivity::class.java)
+            //넘길 데이터
+            intent.putExtra("petsitternickname", petsitternickname)
+            intent.putExtra("petsttteruid", petsitterId)
+            startActivity(intent)
+        }
+
+
+    } //onViewCreated 끝
 
 
     //돌봄 신청하기 버튼 누르면 db에 '신청' 컬렉션에 저장
     private fun saveApplication() {
-        // Firebase에 저장할 데이터 모델 객체 생성
-        val application= ApplicationItem(
+     // Firebase의 users 컬렉션에서 정보 가져오기
+
+        MyApplication.db.collection("users")
+            .whereEqualTo("email", MyApplication.email)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    userdocid = document.id
+                    val user = document.toObject(UserInfo::class.java)
+                    appliernickname = user.nickname.toString()
+
+                    Log.d("확인", "$userdocid")
+
+                    // 데이터를 가져온 후에 작업을 수행하도록 호출
+                    DataFirstSave()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("aaa", "서버 데이터 획득 실패", exception)
+            }
+    }
+
+
+    // Firebase에 저장할 데이터 모델 객체 생성
+    private fun DataFirstSave() {
+
+        val application = ApplicationItem(
             applierId = MyApplication.email,
+            applierNickname = appliernickname,
             petsitterId = petsitterId,
+            petsitterNickname = petsitternickname,
             status = "대기중",
             date = dateToString(Date())
         )
 
         // Firebase에 저장
         MyApplication.db.collection("applications").add(application)
-            .addOnSuccessListener {documentReference ->
+            .addOnSuccessListener { documentReference ->
                 val docId = documentReference.id
                 Log.d("Firestore", "Document added with ID: $docId")
 
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Log.d("fail", "data save error", it)
             }
 
@@ -123,7 +182,7 @@ class ApplicantFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-   }
+    }
 
     fun dateToString(date: Date): String {
         val format = SimpleDateFormat("yyyy-MM-dd")

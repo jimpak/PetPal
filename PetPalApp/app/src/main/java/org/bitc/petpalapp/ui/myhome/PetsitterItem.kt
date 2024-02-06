@@ -1,6 +1,7 @@
 package org.bitc.petpalapp.ui.myhome
 
 data class PetsitterItem(
+    var userdocid : String? =null,
     var docId : String? = null,
     val petsitterId : String? =null,
     val petsitternickname : String? = null,

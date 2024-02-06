@@ -24,6 +24,9 @@
             android:name=".ChatActivity"
             android:exported="false" />
         <activity
+            android:name=".ChatMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".AuthActivity"
             android:exported="true">
             <intent-filter>

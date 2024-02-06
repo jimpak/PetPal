@@ -5,46 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatActivity">
-
+    <!--  대화 내용  -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_above="@+id/layout"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
+        android:id="@+id/chat_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:stackFromEnd="true"/>
-
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/input_layout"
+        android:layout_alignParentTop="true" />
+    <!--  입력 레이아웃  -->
     <LinearLayout
-        android:id="@+id/layout"
-        android:layout_alignParentBottom="true"
-        android:background="@color/purple_700"
-        android:padding="4dp"
-        android:orientation="horizontal"
+        android:id="@+id/input_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!--   maxLines : 최대 n줄까지만 커짐   -->
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
         <EditText
-            android:id="@+id/et"
-            android:maxLines="3"
-            android:inputType="textMultiLine"
-            android:hint="메세지 입력"
-            android:padding="10dp"
-            android:background="#ffffff"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:id="@+id/message_edit"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="85"
+            android:background="@drawable/rightbubble"
+            android:hint="메시지를 입력하세요"
+            android:inputType="text"
+            android:paddingStart="10dp" />
 
-        <Button
-            android:id="@+id/btn"
-            android:text="전송"
-            android:layout_marginLeft="8dp"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/send_btn"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="15"
+            android:background="@drawable/send"
+            android:textColor="@android:color/white" />
     </LinearLayout>
-
 </RelativeLayout>
