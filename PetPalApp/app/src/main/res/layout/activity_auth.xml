@@ -23,6 +23,14 @@
         android:textSize="35sp" />
 
     <TextView
+        android:id="@+id/FindPassTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호찾기"
+        android:visibility="gone"
+        android:textSize="35sp" />
+
+    <TextView
         android:id="@+id/mainTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,6 +64,7 @@
         android:layout_height="wrap_content"
         android:text="로그인"
         android:visibility="gone"/>
+
     <Button
         android:id="@+id/btnEmailSign"
         android:layout_width="match_parent"
@@ -63,28 +72,16 @@
         android:text="회원가입"
         android:visibility="gone"/>
 
+    <Button
+        android:id="@+id/btnNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="새로운 비밀번호로 변경"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btnFindId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.1"
-            android:layout_marginBottom="16dp"
-            android:textColor="@color/black"
-            android:background="@android:color/transparent"
-            android:visibility="gone"
-            android:text="아이디찾기" />
-
-        <TextView
-            android:id="@+id/or1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" | "
-            android:visibility="gone"
-            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btnFindPassword"
@@ -123,6 +120,14 @@
         android:layout_marginBottom="16dp"
         android:visibility="gone"
         android:text="구글 로그인" />
+
+    <Button
+        android:id="@+id/btnMoveLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:text="로그인으로 이동" />
 
 
 

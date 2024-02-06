@@ -3,6 +3,7 @@ package org.bitc.petpalapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -130,6 +131,53 @@ class AuthActivity : AppCompatActivity() {
                 }
         }
 
+
+        binding.btnFindPassword.setOnClickListener {
+            changeVisibility("find_pass")
+        }
+
+        // 비밀번호 찾기
+        binding.btnNewPassword.setOnClickListener {
+            val email = binding.editTextEmail.text.toString()
+
+            if (email.isNotEmpty()) {
+                // 비밀번호 재설정 이메일을 보내기를 시도합니다.
+                MyApplication.auth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            // 비밀번호 재설정 이메일이 성공적으로 보내졌으므로, 이메일은 가입되어 있습니다.
+                            Toast.makeText(
+                                baseContext,
+                                "$email 메일을 확인해 주세요.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            binding.mainTextView.text = "$email 메일을 확인해 주세요."
+
+                        } else {
+                            // 이메일이 가입되어 있지 않거나 다른 이슈가 발생한 경우
+                            Toast.makeText(
+                                baseContext,
+                                "가입되지 않은 이메일 주소입니다.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+            } else {
+                // 이메일이 비어있는 경우
+                Toast.makeText(
+                    baseContext,
+                    "이메일 주소를 입력해주세요.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        }
+
+        binding.btnMoveLogin.setOnClickListener {
+            changeVisibility("logout")
+        }
+
         // 시작하기
         binding.btnStart.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -164,17 +212,18 @@ class AuthActivity : AppCompatActivity() {
             binding.run {
                 LoginTextView.visibility = View.GONE
                 JoinTextView.visibility = View.GONE
+                FindPassTextView.visibility = View.GONE
                 mainTextView.text = "${MyApplication.email} 님 반갑습니다"
                 editTextEmail.visibility = View.GONE
                 editTextPassword.visibility = View.GONE
                 btnLogin.visibility = View.GONE
                 btnEmailSign.visibility = View.GONE
-                btnFindId.visibility = View.GONE
-                or1.visibility = View.GONE
+                btnNewPassword.visibility = View.GONE
                 btnFindPassword.visibility = View.GONE
                 or2.visibility = View.GONE
                 btnRegister.visibility = View.GONE
                 btnGoogleLogin.visibility = View.GONE
+                btnMoveLogin.visibility = View.GONE
                 btnStart.visibility = View.VISIBLE
             }
 
@@ -182,17 +231,18 @@ class AuthActivity : AppCompatActivity() {
             binding.run {
                 LoginTextView.visibility = View.VISIBLE
                 JoinTextView.visibility = View.GONE
+                FindPassTextView.visibility = View.GONE
                 mainTextView.text = "로그인 또는 회원가입이 필요합니다."
                 editTextEmail.visibility = View.VISIBLE
                 editTextPassword.visibility = View.VISIBLE
                 btnLogin.visibility = View.VISIBLE
                 btnEmailSign.visibility = View.GONE
-                btnFindId.visibility = View.VISIBLE
-                or1.visibility = View.VISIBLE
+                btnNewPassword.visibility = View.GONE
                 btnFindPassword.visibility = View.VISIBLE
                 or2.visibility = View.VISIBLE
                 btnRegister.visibility = View.VISIBLE
                 btnGoogleLogin.visibility = View.VISIBLE
+                btnMoveLogin.visibility = View.GONE
                 btnStart.visibility = View.GONE
             }
 
@@ -200,17 +250,37 @@ class AuthActivity : AppCompatActivity() {
             binding.run {
                 LoginTextView.visibility = View.GONE
                 JoinTextView.visibility = View.VISIBLE
+                FindPassTextView.visibility = View.GONE
                 mainTextView.text = ""
                 editTextEmail.visibility = View.VISIBLE
                 editTextPassword.visibility = View.VISIBLE
                 btnLogin.visibility = View.GONE
                 btnEmailSign.visibility = View.VISIBLE
-                btnFindId.visibility = View.GONE
-                or1.visibility = View.GONE
+                btnNewPassword.visibility = View.GONE
                 btnFindPassword.visibility = View.GONE
                 or2.visibility = View.GONE
                 btnRegister.visibility = View.GONE
                 btnGoogleLogin.visibility = View.VISIBLE
+                btnMoveLogin.visibility = View.VISIBLE
+                btnStart.visibility = View.GONE
+            }
+
+        } else if (mode === "find_pass") { // 비밀번호 찾기
+            binding.run {
+                LoginTextView.visibility = View.GONE
+                JoinTextView.visibility = View.GONE
+                FindPassTextView.visibility = View.VISIBLE
+                mainTextView.text = "이메일 주소를 입력하세요."
+                editTextEmail.visibility = View.VISIBLE
+                editTextPassword.visibility = View.GONE
+                btnLogin.visibility = View.GONE
+                btnEmailSign.visibility = View.GONE
+                btnNewPassword.visibility = View.VISIBLE
+                btnFindPassword.visibility = View.GONE
+                or2.visibility = View.GONE
+                btnRegister.visibility = View.GONE
+                btnGoogleLogin.visibility = View.GONE
+                btnMoveLogin.visibility = View.VISIBLE
                 btnStart.visibility = View.GONE
             }
         }

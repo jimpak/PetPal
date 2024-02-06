@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import org.bitc.petpalapp.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_mypet, R.id.navigation_petstargram,
-                R.id.navigation_maching, R.id.navigation_hospital, R.id.navigation_myhome
+                R.id.navigation_machingstatus, R.id.navigation_hospital, R.id.navigation_myhome
 
             )
         )
