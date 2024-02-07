@@ -43,6 +43,8 @@ class SetPetsitterFragment : Fragment()  {
     }
 
 
+    //펫시터 == 현재 로그인 한 사용자
+    //사용자1, 사용자2
     fun makeRecyclerView() {
         //파이어베이스db, applications 컬렉션 가져오기
         MyApplication.db.collection("applications")

@@ -15,8 +15,7 @@
         <ImageView
             android:id="@+id/get_machingImageView"
             android:layout_width="105dp"
-            android:layout_height="105dp"
-            android:src="@drawable/person5" />
+            android:layout_height="105dp" />
 
     </androidx.cardview.widget.CardView>
 
@@ -41,11 +40,21 @@
 
               <TextView
             android:id="@+id/get_maching_type"
-            android:layout_width="150dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textSize="16sp"
            />
+            <ImageButton
+                    android:id="@+id/get_open_chatroom"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                   android:background="#ffffff"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="10dp"
+
+                    android:src="@drawable/bubble_chat"/>
 
             <androidx.cardview.widget.CardView
                 xmlns:android="http://schemas.android.com/apk/res/android"

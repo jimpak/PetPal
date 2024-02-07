@@ -1,13 +1,17 @@
 package org.bitc.petpalapp.recyclerviewAdapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import org.bitc.petpalapp.ChatActivity
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.databinding.GetMatchingItemBinding
+
 import org.bitc.petpalapp.model.ApplicationItem
 import org.bitc.petpalapp.model.UserInfo
 
@@ -17,8 +21,11 @@ class GetMacthingViewHolder(val binding: GetMatchingItemBinding) :
 class MatchingAdapter(val context: Context, val itemList: MutableList<ApplicationItem>) :
     RecyclerView.Adapter<GetMacthingViewHolder>() {
 
-    lateinit var petsitterid: String
+    lateinit var petsitterId: String
+    lateinit var petsitternickname: String
     lateinit var usersdocId: String
+    lateinit var appliernickname: String
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GetMacthingViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return GetMacthingViewHolder(GetMatchingItemBinding.inflate(layoutInflater))
@@ -30,15 +37,21 @@ class MatchingAdapter(val context: Context, val itemList: MutableList<Applicatio
 
     override fun onBindViewHolder(holder: GetMacthingViewHolder, position: Int) {
         val data = itemList.get(position)
-        petsitterid = data.petsitterId.toString()
+        petsitterId = data.petsitterId.toString()
+        petsitternickname = data.petsitterNickname.toString()
+        usersdocId = data.applierId.toString()
+        appliernickname = data.applierNickname.toString()
+
+
+
+
         holder.binding.run {
             getMachingNickname.text = "${data.petsitterNickname}"
             getMachingStauts.text = "${data.status}"
 
 
-
             MyApplication.db.collection("users")
-                .whereEqualTo("email", petsitterid)
+                .whereEqualTo("email", petsitterId)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
@@ -54,12 +67,21 @@ class MatchingAdapter(val context: Context, val itemList: MutableList<Applicatio
                                 .into(holder.binding.getMachingImageView)
                         }
                     }
+
                 }
                 .addOnFailureListener { exception ->
                     Log.d("aaa", "서버 데이터 획득 실패", exception)
                 }
 
-
+            getOpenChatroom.setOnClickListener {
+                val intent = Intent(context, ChatActivity::class.java)
+                //넘길 데이터
+                intent.putExtra("appliernickname", appliernickname)
+                intent.putExtra("petsitternickname", petsitternickname)
+                intent.putExtra("petsttteruid", petsitterId)
+                context.startActivity(intent)
+            }
         }
+
     }
 }

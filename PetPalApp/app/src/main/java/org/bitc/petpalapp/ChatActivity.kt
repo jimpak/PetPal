@@ -10,7 +10,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import org.bitc.petpalapp.databinding.ActivityChatTestBinding
+import org.bitc.petpalapp.databinding.ActivityChatBinding
+
 import org.bitc.petpalapp.model.ChatRoom
 import org.bitc.petpalapp.model.Messages
 import org.bitc.petpalapp.model.UserInfo
@@ -23,7 +24,7 @@ class ChatActivity : AppCompatActivity() {
     private val messageList = mutableListOf<Messages>()
 
     //바인딩 객체
-    private lateinit var binding: ActivityChatTestBinding
+    private lateinit var binding: ActivityChatBinding
 
     private lateinit var auth: FirebaseAuth //인증 객체
     private lateinit var rdb: DatabaseReference //DB 객체
@@ -36,15 +37,13 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var roomId: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChatTestBinding.inflate(layoutInflater)
+        binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
     }
 
     override fun onStart() {
-
-
         super.onStart()
         //초기화
         auth = FirebaseAuth.getInstance()
@@ -56,12 +55,18 @@ class ChatActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     val user = document.toObject(UserInfo::class.java)
+                    //넘어온 데이터 변수에 담기
                     senderNickName = user.nickname.toString()
                     senderUid = MyApplication.email.toString()
-
-                    //넘어온 데이터 변수에 담기
                     receiverNickName = intent.getStringExtra("petsitternickname").toString()
                     receiverUid = intent.getStringExtra("petsttteruid").toString()
+
+                    if (senderNickName==receiverNickName){
+                        receiverNickName = intent.getStringExtra("appliernickname").toString()
+
+
+                    }
+
 
 
                     val message = binding.edtMessage.text.toString()
@@ -76,8 +81,8 @@ class ChatActivity : AppCompatActivity() {
                     Log.d("Uid", "$receiverUid")
 
 
-                    //액션바에 상대방 이름 보여주기
-                    supportActionBar?.title = "To.${receiverNickName}"
+                    //상대방 이름 보여주기
+                    binding.recevierName.text = "${receiverNickName}님과의 대화"
 
                     receiveMessages(roomId, messageList, messageAdapter)
 

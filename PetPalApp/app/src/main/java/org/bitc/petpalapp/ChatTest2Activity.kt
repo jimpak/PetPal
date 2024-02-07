@@ -10,9 +10,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
-
+import org.bitc.petpalapp.MyApplication.Companion.auth
 import org.bitc.petpalapp.databinding.ActivityChatBinding
+import org.bitc.petpalapp.databinding.ActivityChatTest2Binding
+
+
 import org.bitc.petpalapp.model.Message
 import org.bitc.petpalapp.model.UserInfo
 import org.bitc.petpalapp.recyclerviewAdapter.MessageAdapter
@@ -23,7 +25,7 @@ class ChatTest2Activity : AppCompatActivity() {
     private lateinit var receiverUid: String
 
     //바인딩 객체
-    private lateinit var binding: ActivityChatBinding
+    private lateinit var binding: ActivityChatTest2Binding
 
     private lateinit var auth: FirebaseAuth //인증 객체
     private lateinit var rdb: DatabaseReference //DB 객체
@@ -38,7 +40,7 @@ class ChatTest2Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChatBinding.inflate(layoutInflater)
+        binding = ActivityChatTest2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
 //        초기화

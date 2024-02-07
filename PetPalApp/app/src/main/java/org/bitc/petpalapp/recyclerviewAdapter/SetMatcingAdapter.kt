@@ -1,18 +1,23 @@
 package org.bitc.petpalapp.recyclerviewAdapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import org.bitc.petpalapp.ChatActivity
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.databinding.SetMatcingItemBinding
 import org.bitc.petpalapp.model.UserInfo
 import org.bitc.petpalapp.model.ApplicationItem
+import org.bitc.petpalapp.ui.myhome.dateToString
 import java.text.SimpleDateFormat
 import java.util.Date
+
 
 class setMyViewHolder(val binding: SetMatcingItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -21,8 +26,10 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
 
     lateinit var petsitterId: String
     lateinit var applierId: String
+    lateinit var petsitternickname: String
+    lateinit var appliernickname: String
     lateinit var userdocid: String
-    lateinit var useraddress : String
+    lateinit var useraddress: String
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): setMyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -38,53 +45,71 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
         val data = itemList.get(position)
 
         petsitterId = data.petsitterId.toString()
+        petsitternickname = data.petsitterNickname.toString()
         applierId = data.applierId.toString()
+        appliernickname = data.applierNickname.toString()
+
+        // 데이터를 가져온 이후에 intent 생성 및 전달
+        val intent = Intent(context, ChatActivity::class.java)
+        //넘길 데이터
+        intent.putExtra("appliernickname", appliernickname)
+        intent.putExtra("petsitternickname", petsitternickname)
+        intent.putExtra("petsttteruid", petsitterId)
+
+        holder.binding.setOpenChatroom.setOnClickListener {
+            context.startActivity(intent)
+
+        }
 
 
         MyApplication.db.collection("users")
             .whereEqualTo("email", applierId)
             .get()
             .addOnSuccessListener { documents ->
-                for (document in documents) {
+                documents.firstOrNull()?.let { document ->
                     userdocid = document.id
-
                     val user = document.toObject(UserInfo::class.java)
-                    useraddress  =user.address.toString()
+                    useraddress = user?.address.toString()
 
                     Log.d("확인", "$userdocid")
-                }
 
-                val imgRef = MyApplication.storage.reference.child("images/${userdocid}.jpg")
-                imgRef.downloadUrl.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Glide.with(context)
-                            .load(task.result)
-                            .into(holder.binding.setMatchingImageView)
+                    holder.binding.run {
+                        setMatchingNickname.text = "${data.applierNickname}"
+                        setAddress.text = useraddress
+                        acceptbtn.visibility =
+                            if (data.status == "대기중") View.VISIBLE else View.INVISIBLE
+                        accpettext.visibility =
+                            if (data.status == "수락") View.VISIBLE else View.INVISIBLE
+
+                        acceptbtn.setOnClickListener {
+                            updateStore(data.docId.toString())
+                            holder.binding.run {
+                                acceptbtn.visibility = View.INVISIBLE
+                                accpettext.visibility = View.VISIBLE
+                            }
+                        }
                     }
+
+                    val imgRef = MyApplication.storage.reference.child("images/${userdocid}.jpg")
+                    imgRef.downloadUrl.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Glide.with(context)
+                                .load(task.result)
+                                .into(holder.binding.setMatchingImageView)
+                        }
+                    }
+                        .addOnFailureListener { exception ->
+                            Log.d("aaa", "서버 데이터 획득 실패", exception)
+                        }
+
+                }
             }
             .addOnFailureListener { exception ->
-                Log.d("aaa", "서버 데이터 획득 실패", exception)
-            }
-
-
-            holder.binding.run {
-                setMatchingNickname.text = "${data.applierNickname}"
-                setAddress.text = useraddress
-                acceptbtn.visibility = if (data.status == "대기중") View.VISIBLE else View.INVISIBLE
-                accpettext.visibility = if (data.status == "수락") View.VISIBLE else View.INVISIBLE
-            }
-
-            holder.binding.acceptbtn.setOnClickListener {
-                updateStore(data.docId.toString())
-                holder.binding.run {
-                    acceptbtn.visibility = View.INVISIBLE
-                    accpettext.visibility = View.VISIBLE
-                }
-
-            }
-
-        }
+                // 에러 처리
+                Log.e("Firebase", "Error getting documents: ", exception)
+            }// MyApplication.db 끝
     }
+
 
 
     fun updateStore(docId: String) {
@@ -113,4 +138,3 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
         return format.format(date)
     }
 }
-
