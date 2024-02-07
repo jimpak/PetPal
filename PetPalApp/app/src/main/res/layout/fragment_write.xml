@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.petstargram.WriteFragment" >
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/writer_toolbar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.petstargram.WriteFragment" >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/writeImageRecycler"
-        android:layout_marginBottom="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!--    <androidx.appcompat.widget.Toolbar-->
+    <!--        android:id="@+id/writer_toolbar"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="?attr/colorPrimary"-->
+    <!--        android:minHeight="?attr/actionBarSize"-->
+    <!--        android:theme="?attr/actionBarTheme"-->
+    <!--        android:layout_marginBottom="40dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <ImageView
+            android:id="@+id/petstarImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:src="@tools:sample/avatars" />
 
     <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="내용을 입력하세요." />
+            android:id="@+id/etPetstar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="내용을 입력하세요." />
+    <Button
+            android:id="@+id/galleyOpen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="갤러리 이동" />
 
     <Button
-        android:id="@+id/instarupload"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upload" />
+            android:id="@+id/petStarUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload" />
+
+
 
 
 </LinearLayout>
+
+
