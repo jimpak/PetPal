@@ -1,6 +1,7 @@
 package org.bitc.petpalapp.ui.hospital
 
 data class HospitalModel (
+    var hno: Long,
     var gugun: String, // 구
     var animal_hospital: String, // 병원이름
     var approval: String, // 창업일

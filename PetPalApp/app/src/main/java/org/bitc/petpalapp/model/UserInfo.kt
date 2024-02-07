@@ -7,7 +7,4 @@ class UserInfo {
     var email: String? = null
     var phone: String? = null
     var address: String? = null
-    var usecount: String? = null
-    var petcount: String? = null
-    var boardcount: String? = null
 }
