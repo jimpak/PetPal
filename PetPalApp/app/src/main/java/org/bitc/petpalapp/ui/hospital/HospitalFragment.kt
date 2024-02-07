@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import org.bitc.petpalapp.MyApplication
+import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentHospitalBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,7 +34,6 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
     }
 
@@ -57,7 +58,8 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
                         response.body()?.let { hospitalListModel ->
                             val hospitalList = hospitalListModel.hospitals
                             Log.d("hospitalList", "$hospitalList")
-                            val adapter = HospitalAdapter(requireContext(), hospitalList)
+                            val adapter = HospitalAdapter(requireContext(), hospitalList, findNavController())
+
                             binding.hospitalRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                             binding.hospitalRecyclerView.adapter = adapter
                             binding.hospitalRecyclerView.addItemDecoration(
