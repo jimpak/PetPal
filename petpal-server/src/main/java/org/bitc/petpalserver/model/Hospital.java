@@ -9,7 +9,8 @@ import lombok.Data;
 @Entity
 @Data
 public class Hospital {
-    @Id private Long hno;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long hno;
     private String gugun; // 구
     private String animal_hospital; // 동물병원 이름
     private String approval; // 창업일

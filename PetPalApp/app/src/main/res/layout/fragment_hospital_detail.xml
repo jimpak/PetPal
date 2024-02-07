@@ -58,24 +58,13 @@
             android:text="051-230-7578" />
     </GridLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_marginTop="40dp"
-        android:id="@+id/container_map2"
+        android:id="@+id/frame_map2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
             android:orientation="vertical">
-
-        <androidx.fragment.app.FragmentContainerView
-                app:navermap_latitude="35.1798159"
-                app:navermap_longitude="129.0750222"
-                app:navermap_zoom="11"
-                app:navermap_mapType="Terrain"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.naver.maps.map.MapFragment"
-                android:id="@+id/map_fragment"/>
-
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

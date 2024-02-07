@@ -28,6 +28,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
     ): View {
         _binding = FragmentHospitalBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        Log.d("qwerasdf", "HospitalFragment 진입")
 
         return root
     }

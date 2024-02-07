@@ -18,7 +18,9 @@ import org.bitc.petpalapp.AuthActivity
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentPetstargramBinding
-import org.bitc.petpalapp.ui.petstargram.util.MyAdapter
+import org.bitc.petpalapp.ui.mypet.utils.MyAdapter
+
+//import org.bitc.petpalapp.ui.petstargram.util.MyAdapter
 
 class PetstargramFragment : Fragment() {
 
@@ -58,24 +60,24 @@ class PetstargramFragment : Fragment() {
     }
 
     private fun stagstore() {
-        MyApplication.db.collection("news")
-            .get()
-            .addOnSuccessListener { result->
-                val itemList= mutableListOf<itemPetstar>()
-                for (document in result){
-                    val item=document.toObject(itemPetstar::class.java)
-                    item.docId=document.id
-                    itemList.add(item)
-                }
-                binding.petRecyclerview.layoutManager=
-                    GridLayoutManager(requireContext(),3)
-                binding.petRecyclerview.adapter=
-                    MyAdapter(requireContext(),itemList)
-            }
-            .addOnFailureListener {
-                Log.d("error","error..getting document")
-                Toast.makeText(requireContext(),"서버 획득 실패",Toast.LENGTH_SHORT).show()
-            }
+//        MyApplication.db.collection("news")
+//            .get()
+//            .addOnSuccessListener { result->
+//                val itemList= mutableListOf<itemPetstar>()
+//                for (document in result){
+//                    val item=document.toObject(itemPetstar::class.java)
+//                    item.docId=document.id
+//                    itemList.add(item)
+//                }
+//                binding.petRecyclerview.layoutManager=
+//                    GridLayoutManager(requireContext(),3)
+//                binding.petRecyclerview.adapter=
+//                    MyAdapter(requireContext(),itemList)
+//            }
+//            .addOnFailureListener {
+//                Log.d("error","error..getting document")
+//                Toast.makeText(requireContext(),"서버 획득 실패",Toast.LENGTH_SHORT).show()
+//            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
