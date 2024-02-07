@@ -85,10 +85,6 @@ class MyprofileFragment : Fragment() {
             val email = binding.editEmail.text.toString()
             val phone = binding.editPhone.text.toString()
             val address = binding.editAddress.text.toString()
-            val usecount = binding.editUsecount.text.toString()
-            val petcount = binding.editPetcount.text.toString()
-            val boardcount = binding.editBoardcount.text.toString()
-
 
             val data = mapOf(
                 "email" to MyApplication.email,
@@ -97,9 +93,6 @@ class MyprofileFragment : Fragment() {
                 "pass" to pass,
                 "phone" to phone,
                 "address" to address,
-                "usecount" to usecount,
-                "petcout" to petcount,
-                "boardcount" to boardcount
             )
             MyApplication.db.collection("users")
                 .add(data)
@@ -109,6 +102,7 @@ class MyprofileFragment : Fragment() {
                 .addOnFailureListener {
                     Log.d("pgm", "data save error", it)
                 }
+
 
         }
         return binding.root
