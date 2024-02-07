@@ -7,17 +7,6 @@
         android:orientation="vertical"
         tools:context=".ui.petstargram.WriteFragment" >
 
-    <!--    <androidx.appcompat.widget.Toolbar-->
-    <!--        android:id="@+id/writer_toolbar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="?attr/colorPrimary"-->
-    <!--        android:minHeight="?attr/actionBarSize"-->
-    <!--        android:theme="?attr/actionBarTheme"-->
-    <!--        android:layout_marginBottom="40dp"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <ImageView
             android:id="@+id/petstarImg"
             android:layout_width="match_parent"

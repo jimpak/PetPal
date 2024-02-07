@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.databinding.ItempetstarBinding
-import org.bitc.petpalapp.ui.mypet.util.MyViewHolder
 import org.bitc.petpalapp.ui.petstargram.itemPetstar
 
 class PetViewHolder(val binding: ItempetstarBinding):RecyclerView.ViewHolder(binding.root)
@@ -21,11 +20,11 @@ class MyAdapter(val context: Context, val datas:MutableList<itemPetstar>
     }
 
     override fun getItemCount(): Int {
-        return datas?.size?:0
+        return datas.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val data= datas?.get(position)
+        val data= datas.get(position)
         val binding=(holder as PetViewHolder).binding
         val imgpet=MyApplication.storage.reference.child("images/${data?.docId}.jpg")
         imgpet.downloadUrl.addOnCompleteListener { task->

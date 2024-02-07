@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/petstargram_detail"
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+            android:layout_margin="7.5dp"/>
+
+        <TextView
+                android:id="@+id/detail_profile"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="username" />
+    </LinearLayout>
+    <ImageView
+            android:id="@+id/detail_content"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+        android:scaleType="fitXY"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        <ImageView
+                android:id="@+id/detail_like_bin"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_favorite_border"/>
+<!--        <ImageView-->
+<!--                android:id="@+id/detail_heart"-->
+<!--                android:layout_width="35dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:src="@drawable/ic_favorite "/>-->
+        <TextView
+                android:id="@+id/detail_likecount"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="like 0"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/detail_cotent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Explain content"/>
+
+
+
+</LinearLayout>

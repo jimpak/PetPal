@@ -22,7 +22,7 @@ fun myCheckpermission(fragment:AppCompatDialogFragment){
     }
 //    if(ContextCompat.checkSelfPermission(
 //        fragment.requireContext(),
-////        Manifest.permission.READ_EXTERNAL_STORAGE
+//        Manifest.permission.READ_EXTERNAL_STORAGE
 //    )!=PackageManager.PERMISSION_GRANTED
 //        ){
 //        requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
