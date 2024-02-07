@@ -22,7 +22,6 @@ import org.bitc.petpalapp.ui.myhome.myCheckPermission
 
 class MainActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityMainBinding
     private val navController: NavController by lazy {
         findNavController(R.id.nav_host_fragment_activity_main)
@@ -37,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

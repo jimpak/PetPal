@@ -14,7 +14,19 @@
         android:id="@+id/container_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal" />
+        android:orientation="horizontal">
+
+        <androidx.fragment.app.FragmentContainerView
+                app:navermap_latitude="35.1798159"
+                app:navermap_longitude="129.0750222"
+                app:navermap_zoom="11"
+                app:navermap_mapType="Terrain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.naver.maps.map.MapFragment"
+                android:id="@+id/map_fragment"/>
+
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -25,7 +37,7 @@
         app:headerLayout="@layout/nav_header_main">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/hospital_recyclerView"
+            android:id="@+id/hospitalRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
