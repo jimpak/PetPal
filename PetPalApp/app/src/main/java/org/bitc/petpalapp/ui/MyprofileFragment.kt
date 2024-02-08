@@ -113,8 +113,8 @@ class MyprofileFragment : Fragment() {
                 }
 
                 binding.btnSave.setOnClickListener {
-                    val nickname = binding.editName.text.toString()
-                    val username = binding.editNickname.text.toString()
+                    val nickname = binding.editNickname.text.toString()
+                    val username = binding.editName.text.toString()
                     val pass = binding.editPassword.text.toString()
                     val phone = binding.editPhone.text.toString()
                     val address = binding.editAddress.text.toString()

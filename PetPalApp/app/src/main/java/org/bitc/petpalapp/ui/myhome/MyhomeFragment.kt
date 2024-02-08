@@ -64,8 +64,8 @@ class MyhomeFragment : Fragment() {
                     item.docId = document.id
                     itemList.add(item)
 
-                    binding.txNickname.setText(item.nickname)
                     binding.txName.setText(item.username)
+                    binding.txNickname.setText(item.nickname)
                     binding.txAddress.setText(item.address)
                     binding.txEmail.setText(item.email)
 
