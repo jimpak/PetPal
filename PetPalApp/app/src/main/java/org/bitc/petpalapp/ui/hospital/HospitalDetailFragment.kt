@@ -25,7 +25,6 @@ import retrofit2.Response
 class HospitalDetailFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentHospitalDetailBinding? = null
     private val binding get() = _binding!!
-    lateinit var mapFragment: MapFragment
 
     private var hospital: HospitalModel? = null
 
@@ -86,5 +85,10 @@ class HospitalDetailFragment : Fragment(), OnMapReadyCallback {
                 naverMap.moveCamera(cameraUpdate)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
