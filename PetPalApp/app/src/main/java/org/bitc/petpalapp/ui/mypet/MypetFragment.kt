@@ -41,10 +41,6 @@ class MypetFragment : Fragment(), OnItemClickListener {
         binding.petInsert.setOnClickListener {
             findNavController().navigate(R.id.action_mypetFragment_to_petregiFragment)
         }
-
-
-
-
     }
 
 
