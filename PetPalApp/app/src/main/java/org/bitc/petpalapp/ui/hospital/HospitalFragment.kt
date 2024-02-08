@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -19,6 +21,7 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
@@ -27,10 +30,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HospitalFragment : Fragment(), OnMapReadyCallback {
+class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleListener {
 
-        private val LOCATION_PERMISSION_REQUEST_CODE = 1000
-        private val PERMISSIONS = arrayOf(
+        private val locationPermissionRequestCode = 1000
+        private val permissions = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
@@ -38,9 +41,20 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentHospitalBinding? = null
     private val binding get() = _binding!!
     private lateinit var locationSource: FusedLocationSource
-    private lateinit var naverMap: NaverMap
 
     private var hospitalList: List<HospitalModel>? = null
+    private lateinit var naverMap: NaverMap
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                // 권한이 모두 수락되었을 때
+                initMapView()
+            } else {
+                // 권한이 거부되었을 때
+                showToast()
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +64,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
         val root: View = binding.root
 
         if (!hasPermission()) {
-            ActivityCompat.requestPermissions(requireActivity(), PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE)
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         } else {
             initMapView()
         }
@@ -74,6 +88,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
                         response.body()?.let { hospitalListModel ->
                             hospitalList = hospitalListModel.hospitals
                             Log.d("hospitalList", "$hospitalList")
+
                             val adapter = HospitalAdapter(requireContext(), hospitalList, findNavController())
 
                             binding.hospitalRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -95,14 +110,27 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(naverMap: NaverMap) {
         this.naverMap = naverMap
-        // 현재 위치
-        naverMap.locationSource = locationSource
-        // 현재 위치 버튼 기능
-        naverMap.uiSettings.isLocationButtonEnabled = true
-        // 위치를 추적하면서 카메라도 따라 움직인다.
-        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+        // 위치 권한 확인
+        if (hasPermission()) {
+            // 지도 초기화
+            naverMap.locationSource = locationSource
+            naverMap.uiSettings.isLocationButtonEnabled = true
+            naverMap.locationTrackingMode = LocationTrackingMode.Follow
 
-        hospitalList?.let { addHospitalMarkers(it) }
+            naverMap.addOnCameraIdleListener(this)
+
+            hospitalList?.let { showHospitalsInVisibleRegion(it) }
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                permissions,
+                locationPermissionRequestCode
+            )
+        }
+    }
+
+    override fun onCameraIdle() {
+        hospitalList?.let { showHospitalsInVisibleRegion(it) }
     }
 
     // 지도 관련 init
@@ -114,12 +142,12 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
             }
 
         mapFragment.getMapAsync(this)
-        locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+        locationSource = FusedLocationSource(this, locationPermissionRequestCode)
     }
 
     // 위치 권한
     private fun hasPermission(): Boolean {
-        for (permission in PERMISSIONS) {
+        for (permission in permissions) {
             if (ContextCompat.checkSelfPermission(requireContext(), permission)
                 != PackageManager.PERMISSION_GRANTED
             ) {
@@ -131,13 +159,39 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
 
     // 마커
     private fun addHospitalMarkers(hospitals: List<HospitalModel>?) {
+        Log.d("hospital", "Trying to add markers. Hospitals: $hospitals")
         hospitals?.forEach { hospital ->
+            Log.d("hospital", "Adding marker for hospital: ${hospital.animal_hospital}")
             val marker = Marker()
             marker.position = LatLng(hospital.lat, hospital.lon)
             marker.map = naverMap
             marker.captionText = hospital.animal_hospital
+            marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_blue)
+
+            Log.d("hospital", "Added marker for hospital: ${hospital.animal_hospital}")
         }
     }
+
+
+    private fun showHospitalsInVisibleRegion(hospitals: List<HospitalModel>) {
+        val visibleRegionBounds = naverMap.contentBounds
+        Log.d("hospital", "Bounds: $visibleRegionBounds")
+
+        val visibleHospitals = hospitals.filter { hospital ->
+            val hospitalLatLng = LatLng(hospital.lat, hospital.lon)
+            val isContained = visibleRegionBounds.contains(hospitalLatLng)
+            Log.d("hospital", "Hospital: $hospital, isContained: $isContained")
+            isContained
+        }
+
+        Log.d("hospital", "Visible Hospitals: $visibleHospitals")
+        addHospitalMarkers(visibleHospitals)
+    }
+
+    private fun showToast() {
+        Toast.makeText(requireContext(), getString(R.string.permission_denied_message), Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
