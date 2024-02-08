@@ -11,12 +11,21 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="115dp">
-
-        <ImageView
-                android:id="@+id/profileImage"
+        <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                tools:src="@tools:sample/avatars" />
+                app:cardCornerRadius="75dp"
+                app:cardMaxElevation="5sp">
+
+            <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/avatars" />
+
+        </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
                 android:layout_marginBottom="10dp"
