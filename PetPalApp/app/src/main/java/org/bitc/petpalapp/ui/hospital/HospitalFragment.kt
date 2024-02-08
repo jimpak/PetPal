@@ -43,6 +43,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
     private lateinit var locationSource: FusedLocationSource
 
     private var hospitalList: List<HospitalModel>? = null
+    private var markerList: MutableList<Marker> = mutableListOf()
     private lateinit var naverMap: NaverMap
 
     private val requestPermissionLauncher =
@@ -160,6 +161,11 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
     // 마커
     private fun addHospitalMarkers(hospitals: List<HospitalModel>?) {
         Log.d("hospital", "Trying to add markers. Hospitals: $hospitals")
+
+        // 기존 마커 제거
+        markerList.forEach { it.map = null }
+        markerList.clear()
+
         hospitals?.forEach { hospital ->
             Log.d("hospital", "Adding marker for hospital: ${hospital.animal_hospital}")
             val marker = Marker()
@@ -168,6 +174,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
             marker.captionText = hospital.animal_hospital
             marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_blue)
 
+            markerList.add(marker)
             Log.d("hospital", "Added marker for hospital: ${hospital.animal_hospital}")
         }
     }
@@ -186,6 +193,14 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
 
         Log.d("hospital", "Visible Hospitals: $visibleHospitals")
         addHospitalMarkers(visibleHospitals)
+
+        // RecyclerView 업데이트
+        val adapter = HospitalAdapter(requireContext(), visibleHospitals, findNavController())
+        binding.hospitalRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.hospitalRecyclerView.adapter = adapter
+        binding.hospitalRecyclerView.addItemDecoration(
+            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        )
     }
 
     private fun showToast() {
