@@ -1,9 +1,13 @@
 package org.bitc.petpalapp
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -98,7 +102,8 @@ class ChatActivity : AppCompatActivity() {
                         }
                         //입력값 초기화
                         binding.edtMessage.setText("")
-
+                        // 키패드 숨기기
+                        hideKeyboard(binding.edtMessage)
                     }
 
                 }
@@ -214,6 +219,10 @@ class ChatActivity : AppCompatActivity() {
             )
         return roomId
     }
-
+    // 키패드를 숨기는 함수
+    fun hideKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 }
 

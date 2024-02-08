@@ -41,9 +41,9 @@ class PetstargramFragment : Fragment() {
         binding = FragmentPetstargramBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.petstarAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_petstargram_add)
-        }
+//        binding.petstarAdd.setOnClickListener {
+//            findNavController().navigate(R.id.action_petstargram_add)
+//        }
 
 //        binding.petImg1.setOnClickListener {
 //            findNavController().navigate(R.id.action_petstargram_add)
@@ -56,7 +56,7 @@ class PetstargramFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        stagstore()
+//        stagstore()
     }
 
     private fun stagstore() {
@@ -89,11 +89,6 @@ class PetstargramFragment : Fragment() {
 
 
 
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        binding? = null
-//    }
 
 
 

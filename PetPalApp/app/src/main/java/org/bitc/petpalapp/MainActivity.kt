@@ -31,9 +31,8 @@ class MainActivity : AppCompatActivity() {
     private val appBarConfiguration: AppBarConfiguration by lazy {
         AppBarConfiguration(
             setOf(
-                R.id.navigation_mypet, R.id.navigation_petstargram,
+                R.id.navigation_mypet, R.id.navigation_petstargramtest,
                 R.id.navigation_machingstatus, R.id.navigation_hospital, R.id.navigation_myhome
-
             )
         )
     }

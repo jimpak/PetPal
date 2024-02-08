@@ -6,6 +6,15 @@
         app:startDestination="@+id/navigation_myhome">
 
 
+
+    <fragment
+            android:id="@+id/navigation_petstargramtest"
+            android:name="org.bitc.petpalapp.ui.petstargram.PetstargramTestFragment"
+            android:label="펫스타그램 테스트"
+            tools:layout="@layout/fragment_petstargram_test">
+    </fragment>
+
+
     <fragment
             android:id="@+id/navigation_mypet"
             android:name="org.bitc.petpalapp.ui.mypet.MypetFragment"
@@ -25,12 +34,12 @@
             android:label="펫스타그램"
             tools:layout="@layout/fragment_petstargram" >
 
-        <action
-                android:id="@+id/action_petstargram_add"
-                app:destination="@+id/pestargram_add"/>
-        <action
-                android:id="@+id/action_petstargram_detail"
-                app:destination="@+id/petstar_detail"/>
+<!--        <action-->
+<!--                android:id="@+id/action_petstargram_add"-->
+<!--                app:destination="@+id/pestargram_add"/>-->
+<!--        <action-->
+<!--                android:id="@+id/action_petstargram_detail"-->
+<!--                app:destination="@+id/petstar_detail"/>-->
     </fragment>
 
     <fragment
