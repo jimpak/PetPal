@@ -15,8 +15,11 @@ import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentMachingBinding
 import org.bitc.petpalapp.databinding.FragmentPetstargramTestBinding
 import org.bitc.petpalapp.model.ApplicationItem
+import org.bitc.petpalapp.model.PetstargamItem
 import org.bitc.petpalapp.recyclerviewAdapter.GridAdapter
 import org.bitc.petpalapp.recyclerviewAdapter.setMatchingAdapter
+import org.bitc.petpalapp.ui.mypet.PetData
+import org.bitc.petpalapp.ui.mypet.utils.MyAdapter
 
 class PetstargramTestFragment : Fragment() {
     private var _binding: FragmentPetstargramTestBinding? = null
@@ -31,21 +34,20 @@ class PetstargramTestFragment : Fragment() {
         _binding = FragmentPetstargramTestBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //이미지 로드, 리사이클러뷰 그리드 형식으로 출력
-        makeRecyclerView()
-
-
-        binding.addPetsatrfab.setOnClickListener {
-
-            findNavController().navigate(R.id.action_petstarmain_to_insert)
-        }
-
-
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        //이미지 로드, 리사이클러뷰 그리드 형식으로 출력
+        makeRecyclerView()
+
+        binding.addPetsatrfab.setOnClickListener {
+
+            findNavController().navigate(R.id.action_petstarmain_to_insert)
+        }
 
     }
 
@@ -56,7 +58,6 @@ class PetstargramTestFragment : Fragment() {
 
 
 
-
     fun makeRecyclerView() {
         //테스트 더미 데이터 넣기
         val testList = mutableListOf<String>()
@@ -64,15 +65,29 @@ class PetstargramTestFragment : Fragment() {
             testList.add(i.toString())
         }
 
-        binding.petstarRecyclerView.layoutManager =GridLayoutManager(requireContext(), 3)
-        binding.petstarRecyclerView.adapter =
-            GridAdapter(requireContext(), testList)
-        binding.petstarRecyclerView.addItemDecoration(
-            DividerItemDecoration(
-                requireContext(),
-                LinearLayoutManager.VERTICAL
-            )
-        )
+            MyApplication.db.collection("petstars")
+                .get()
+                .addOnSuccessListener { result ->
+                    val itemList = mutableListOf<PetstargamItem>()
+                    for (document in result) {
+                        val item = document.toObject(PetstargamItem::class.java)
+                        item.docId = document.id
+                        itemList.add(item)
+                    }
+                    binding.petstarRecyclerView.layoutManager =GridLayoutManager(requireContext(), 3)
+                    binding.petstarRecyclerView.adapter =
+                        GridAdapter(requireContext(), itemList)
+                    binding.petstarRecyclerView.addItemDecoration(
+                        DividerItemDecoration(
+                            requireContext(),
+                            LinearLayoutManager.VERTICAL
+                        )
+                    )
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("kkang", "error..getting document..", exception)
+                }
+
     }
 
 }

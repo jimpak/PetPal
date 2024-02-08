@@ -9,5 +9,15 @@
     <color name="white">#FFFFFFFF</color>
 
 
+        <color name="primary">#8E78CA</color>
+        <color name="primary_dark">#B778CA</color>
+        <color name="primary_light">#B2DFDB</color>
+        <color name="accent">#CA78B4</color>
+        <color name="primary_text">#212121</color>
+        <color name="secondary_text">#757575</color>
+        <color name="icons">#FFFFFF</color>
+        <color name="divider">#788BCA</color>
+
+
 </resources>
 

@@ -6,7 +6,6 @@
 
 
     <ImageView
-            android:src="@drawable/cat_icon"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:id="@+id/petstar_img" />
