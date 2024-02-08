@@ -16,15 +16,14 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-        <androidx.fragment.app.FragmentContainerView
-                app:navermap_latitude="35.1798159"
-                app:navermap_longitude="129.0750222"
-                app:navermap_zoom="11"
-                app:navermap_mapType="Terrain"
+        <FrameLayout
+                android:layout_marginTop="40dp"
+                android:id="@+id/frame_map1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:name="com.naver.maps.map.MapFragment"
-                android:id="@+id/map_fragment"/>
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical">
+        </FrameLayout>
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
