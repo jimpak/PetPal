@@ -25,8 +25,20 @@ import retrofit2.Response
 class HospitalDetailFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentHospitalDetailBinding? = null
     private val binding get() = _binding!!
+    lateinit var mapFragment: MapFragment
 
     private var hospital: HospitalModel? = null
+
+    override fun onStart() {
+        super.onStart()
+
+        val fm = childFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.frame_map2) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(R.id.frame_map2, it).commit()
+            }
+        mapFragment.getMapAsync(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,14 +46,6 @@ class HospitalDetailFragment : Fragment(), OnMapReadyCallback {
     ): View {
         _binding = FragmentHospitalDetailBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val fm = activity?.supportFragmentManager
-        val mapFragment = fm?.findFragmentById(R.id.frame_map2) as MapFragment?
-            ?: MapFragment.newInstance().also {
-                fm?.beginTransaction()?.add(R.id.frame_map2, it)?.commit()
-            }
-
-        mapFragment.getMapAsync(this)
 
         return root
     }
@@ -59,8 +63,6 @@ class HospitalDetailFragment : Fragment(), OnMapReadyCallback {
                 binding.hospitalName.text = hospital?.animal_hospital.orEmpty()
                 binding.hospitalAddress.text = hospital?.road_address.orEmpty()
                 binding.hospitalPhone.text = hospital?.tel.orEmpty()
-                Log.d("qwerasdf", "onViewCreated 영역 , ${hospital?.lat}")
-                Log.d("qwerasdf", "onViewCreated 영역 , ${hospital?.lon}")
             }
 
             override fun onFailure(call: Call<HospitalModel>, t: Throwable) {
@@ -74,23 +76,15 @@ class HospitalDetailFragment : Fragment(), OnMapReadyCallback {
             hospital?.let {
                 val lat = it.lat
                 val lon = it.lon
-                Log.d("qwerasdf", "aaaaaaaa")
-                Log.d("qwerasdf", "$lat")
-                Log.d("qwerasdf", "$lon")
 
                 val marker = Marker()
                 marker.position = LatLng(lat, lon)
                 marker.map = naverMap
 
                 val cameraUpdate = CameraUpdate.scrollTo(LatLng(lat, lon))
-                    .animate(CameraAnimation.Fly, 5000)
+                    .animate(CameraAnimation.Fly, 2000)
                 naverMap.moveCamera(cameraUpdate)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
