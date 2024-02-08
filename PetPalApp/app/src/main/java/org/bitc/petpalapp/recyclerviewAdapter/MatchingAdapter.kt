@@ -44,7 +44,6 @@ class MatchingAdapter(val context: Context, val itemList: MutableList<Applicatio
 
 
 
-
         holder.binding.run {
             getMachingNickname.text = "${data.petsitterNickname}"
             getMachingStauts.text = "${data.status}"

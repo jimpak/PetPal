@@ -12,8 +12,15 @@
             android:name="org.bitc.petpalapp.ui.petstargram.PetstargramTestFragment"
             android:label="펫스타그램 테스트"
             tools:layout="@layout/fragment_petstargram_test">
+        <action android:id="@+id/action_petstarmain_to_insert"
+                app:destination="@+id/petstar_insert"/>
     </fragment>
 
+    <fragment
+            android:id="@+id/petstar_insert"
+            android:name="org.bitc.petpalapp.ui.petstargram.PetstarWriteFragment"
+            android:label="펫스타그램 입력창"
+            tools:layout="@layout/fragment_petstar_write" />
 
     <fragment
             android:id="@+id/navigation_mypet"
@@ -28,19 +35,7 @@
                 app:destination="@id/mypet_detail" />
     </fragment>
 
-    <fragment
-            android:id="@+id/navigation_petstargram"
-            android:name="org.bitc.petpalapp.ui.petstargram.PetstargramFragment"
-            android:label="펫스타그램"
-            tools:layout="@layout/fragment_petstargram" >
 
-<!--        <action-->
-<!--                android:id="@+id/action_petstargram_add"-->
-<!--                app:destination="@+id/pestargram_add"/>-->
-<!--        <action-->
-<!--                android:id="@+id/action_petstargram_detail"-->
-<!--                app:destination="@+id/petstar_detail"/>-->
-    </fragment>
 
     <fragment
             android:id="@+id/navigation_machingstatus"
@@ -51,7 +46,7 @@
     <fragment
             android:id="@+id/navigation_maching"
             android:name="org.bitc.petpalapp.ui.mypet.MachingFragment"
-            android:label="매칭현황"
+            android:label="돌보미리스트"
             tools:layout="@layout/fragment_maching" />
 
     <fragment
@@ -131,5 +126,20 @@
             android:name="org.bitc.petpalapp.ui.mypet.PetDetailFragment"
             android:label="마이펫 상세"
             tools:layout="@layout/fragment_pet_detail" />
+
+
+    <!--    <fragment-->
+    <!--            android:id="@+id/navigation_petstargram"-->
+    <!--            android:name="org.bitc.petpalapp.ui.petstargram.PetstargramFragment"-->
+    <!--            android:label="펫스타그램"-->
+    <!--            tools:layout="@layout/fragment_petstargram" >-->
+
+    <!--        <action-->
+    <!--                android:id="@+id/action_petstargram_add"-->
+    <!--                app:destination="@+id/pestargram_add"/>-->
+    <!--        <action-->
+    <!--                android:id="@+id/action_petstargram_detail"-->
+    <!--                app:destination="@+id/petstar_detail"/>-->
+    <!--    </fragment>-->
 
 </navigation>
