@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -19,25 +20,22 @@ import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentMyhomeBinding
 import org.bitc.petpalapp.databinding.FragmentMyprofileBinding
+import org.bitc.petpalapp.model.UserInfo
 import org.bitc.petpalapp.ui.myhome.MyhomeViewModel
+import org.bitc.petpalapp.ui.mypet.PetData
 import java.io.File
 import java.util.Date
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class MyprofileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
     lateinit var filePath: String
+    lateinit var docId: String
+    private var _binding: FragmentMyprofileBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
 
@@ -46,6 +44,7 @@ class MyprofileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentMyprofileBinding.inflate(inflater, container, false)
+
 
         val requestLancher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -68,43 +67,97 @@ class MyprofileFragment : Fragment() {
             }
         }
 
-        binding.changeProfileImageButton.setOnClickListener {
 
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.setDataAndType(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                "image/*"
-            )
-            requestLancher.launch(intent)
-        }
+        //마이프로필 등록되어있다면 정보 가져오기
+        val docRef = MyApplication.db.collection("users")
 
-        binding.btnSave.setOnClickListener {
-            val nickname = binding.editName.text.toString()
-            val username = binding.editNickname.text.toString()
-            val pass = binding.editPassword.text.toString()
-            val email = binding.editEmail.text.toString()
-            val phone = binding.editPhone.text.toString()
-            val address = binding.editAddress.text.toString()
+        docRef
+            .whereEqualTo("email", MyApplication.email)
+            .get()
+            .addOnSuccessListener { result ->
+                val itemList = mutableListOf<UserInfo>()
+                for (document in result) {
+                    val item = document.toObject(UserInfo::class.java)
+                    item.docId = document.id
+                    docId = item.docId.toString()
+                    itemList.add(item)
 
-            val data = mapOf(
-                "email" to MyApplication.email,
-                "nickname" to nickname,
-                "usersname" to username,
-                "pass" to pass,
-                "phone" to phone,
-                "address" to address,
-            )
-            MyApplication.db.collection("users")
-                .add(data)
-                .addOnSuccessListener {
-                    uploadImage(it.id)
+                    binding.editNickname.setText(item.nickname)
+                    binding.editName.setText(item.username)
+                    binding.editAddress.setText(item.address)
+                    binding.editPhone.setText(item.phone)
+                    binding.editPassword.setText(item.pass)
+
+                    val imgRef =
+                        MyApplication.storage.reference.child("images/${item.docId}.jpg")
+
+                    imgRef.downloadUrl.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Glide
+                                .with(requireContext())
+                                .load(task.result)
+                                .into(binding.profileImageView)
+                        }
+                    }
                 }
-                .addOnFailureListener {
-                    Log.d("pgm", "data save error", it)
+
+
+                binding.changeProfileImageButton.setOnClickListener {
+
+                    val intent = Intent(Intent.ACTION_PICK)
+                    intent.setDataAndType(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        "image/*"
+                    )
+                    requestLancher.launch(intent)
                 }
 
+                binding.btnSave.setOnClickListener {
+                    val nickname = binding.editName.text.toString()
+                    val username = binding.editNickname.text.toString()
+                    val pass = binding.editPassword.text.toString()
+                    val phone = binding.editPhone.text.toString()
+                    val address = binding.editAddress.text.toString()
 
-        }
+                    val data = mapOf(
+                        "email" to MyApplication.email,
+                        "nickname" to nickname,
+                        "usersname" to username,
+                        "pass" to pass,
+                        "phone" to phone,
+                        "address" to address,
+                    )
+
+                    if (docId != null) {
+                        MyApplication.db.collection("users").document(docId)
+                            .set(data)
+                            .addOnSuccessListener {
+                                uploadImage(docId)
+                            }
+                            .addOnFailureListener {
+                                Log.d("pgm", "data save error", it)
+                            }
+
+                    } else {
+                        MyApplication.db.collection("users")
+                            .add(data)
+                            .addOnSuccessListener {
+                                uploadImage(it.id)
+                            }
+                            .addOnFailureListener {
+                                Log.d("pgm", "data save error", it)
+                            }
+
+
+                        findNavController().navigate(R.id.action_Myprofile_to_myhome)
+
+                    }
+                }
+            }
+            .addOnFailureListener { Exception ->
+                Log.d("bbb", "오류", Exception)
+            }
+
         return binding.root
     }
 
@@ -123,42 +176,5 @@ class MyprofileFragment : Fragment() {
             }
     }
 
-    class MyprofileFragment : Fragment() {
-        private var _binding: FragmentMyprofileBinding? = null
-        private val binding get() = _binding!!
 
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View {
-            val homeViewModel =
-                ViewModelProvider(this).get(MyhomeViewModel::class.java)
-
-            _binding = FragmentMyprofileBinding.inflate(inflater, container, false)
-            val root: View = binding.root
-
-            return root
-        }
-
-        //프래그먼트이동
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-
-            binding.btnSave.setOnClickListener {
-                findNavController().navigate(R.id.action_Myprofile_to_myhome)
-            }
-        }
-
-        companion object {
-            @JvmStatic
-            fun newInstance(param1: String, param2: String) =
-                MyprofileFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
-        }
-    }
 }
