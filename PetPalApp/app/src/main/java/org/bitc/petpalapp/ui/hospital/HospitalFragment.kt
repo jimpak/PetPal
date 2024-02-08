@@ -13,10 +13,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
@@ -33,11 +35,12 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
 
-
     private var _binding: FragmentHospitalBinding? = null
     private val binding get() = _binding!!
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
+
+    private var hospitalList: List<HospitalModel>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,7 +72,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
                 if (isAdded) { // 프래그먼트 연결 확인
                     if (response.isSuccessful) {
                         response.body()?.let { hospitalListModel ->
-                            val hospitalList = hospitalListModel.hospitals
+                            hospitalList = hospitalListModel.hospitals
                             Log.d("hospitalList", "$hospitalList")
                             val adapter = HospitalAdapter(requireContext(), hospitalList, findNavController())
 
@@ -98,8 +101,11 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
         naverMap.uiSettings.isLocationButtonEnabled = true
         // 위치를 추적하면서 카메라도 따라 움직인다.
         naverMap.locationTrackingMode = LocationTrackingMode.Follow
+
+        hospitalList?.let { addHospitalMarkers(it) }
     }
 
+    // 지도 관련 init
     private fun initMapView() {
         val fm = childFragmentManager
         val mapFragment = fm.findFragmentById(R.id.frame_map1) as MapFragment?
@@ -111,7 +117,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
     }
 
-    // hasPermission()에서는 위치 권한이 있을 경우 true를, 없을 경우 false를 반환한다.
+    // 위치 권한
     private fun hasPermission(): Boolean {
         for (permission in PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(requireContext(), permission)
@@ -121,6 +127,16 @@ class HospitalFragment : Fragment(), OnMapReadyCallback {
             }
         }
         return true
+    }
+
+    // 마커
+    private fun addHospitalMarkers(hospitals: List<HospitalModel>?) {
+        hospitals?.forEach { hospital ->
+            val marker = Marker()
+            marker.position = LatLng(hospital.lat, hospital.lon)
+            marker.map = naverMap
+            marker.captionText = hospital.animal_hospital
+        }
     }
 
     override fun onDestroyView() {
