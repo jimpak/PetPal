@@ -58,7 +58,7 @@
     <fragment
             android:id="@+id/hospital_detail"
             android:name="org.bitc.petpalapp.ui.hospital.HospitalDetailFragment"
-            android:label="병원 상세"
+            android:label="병원 상세페이지"
             tools:layout="@layout/fragment_hospital_detail" />
 
     <fragment
@@ -104,7 +104,7 @@
     <fragment
             android:id="@+id/petsitter_detail"
             android:name="org.bitc.petpalapp.ui.mypet.ApplicantFragment"
-            android:label="돌보미 상세"
+            android:label="돌보미 상세페이지"
             tools:layout="@layout/fragment_applicant" />
 
     <fragment
