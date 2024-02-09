@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/mobile_navigation"
-        app:startDestination="@+id/navigation_myhome">
+        app:startDestination="@+id/navigation_mypet">
 
 
 
@@ -113,7 +113,7 @@
 
     <fragment
             android:id="@+id/user_myprofile"
-            android:name="org.bitc.petpalapp.ui.MyprofileFragment"
+            android:name="org.bitc.petpalapp.ui.myhome.MyprofileFragment"
             android:label="프로필 입력"
             tools:layout="@layout/fragment_myprofile">
         <action

@@ -40,7 +40,7 @@ class PetsiiterAdapter(
         }
 
 
-        val imgRef = MyApplication.storage.reference.child("images/${data.userdocid}.jpg")
+        val imgRef = MyApplication.storage.reference.child("userimages/${data.userdocid}.jpg")
         imgRef.downloadUrl.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Glide.with(context)

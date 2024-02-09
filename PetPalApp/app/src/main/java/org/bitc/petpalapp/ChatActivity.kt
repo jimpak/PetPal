@@ -23,8 +23,15 @@ import org.bitc.petpalapp.recyclerviewAdapter.MessageAdapter2
 
 
 class ChatActivity : AppCompatActivity() {
+
     private lateinit var receiverNickName: String
+    private lateinit var receiverEmail: String
     private lateinit var receiverUid: String
+    private lateinit var senderNickName: String
+    private lateinit var senderEmail: String
+    private lateinit var senderUid: String
+
+
     private val messageList = mutableListOf<Messages>()
 
     //바인딩 객체
@@ -34,8 +41,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var rdb: DatabaseReference //DB 객체
 
 
-    private lateinit var senderNickName: String
-    private lateinit var senderUid: String
+
     private lateinit var messageAdapter: MessageAdapter2
 
     private lateinit var roomId: String
@@ -43,8 +49,6 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
     }
 
     override fun onStart() {
@@ -61,23 +65,24 @@ class ChatActivity : AppCompatActivity() {
                     val user = document.toObject(UserInfo::class.java)
                     //넘어온 데이터 변수에 담기
                     senderNickName = user.nickname.toString()
-                    senderUid = MyApplication.email.toString()
+                    senderEmail= MyApplication.email.toString()
+                    senderUid = removeSpecialCharacters(senderEmail)
                     receiverNickName = intent.getStringExtra("petsitternickname").toString()
-                    receiverUid = intent.getStringExtra("petsttteruid").toString()
+                    receiverEmail = intent.getStringExtra("petsttteruid").toString()
+                    receiverUid = removeSpecialCharacters(receiverEmail)
 
-                    if (senderNickName==receiverNickName){
+                    if (senderEmail==receiverEmail){
                         receiverNickName = intent.getStringExtra("appliernickname").toString()
-
-
+                        receiverEmail = intent.getStringExtra("applieremail").toString()
+                        receiverUid = removeSpecialCharacters(receiverEmail)
                     }
-
 
 
                     val message = binding.edtMessage.text.toString()
                     // 채팅방이 이미 존재하는지 확인하고, 존재한다면 해당 채팅방 ID를 가져옴
-                    roomId = getExistingChatRoomId(senderNickName, receiverNickName, message)
+                    roomId = getExistingChatRoomId(senderUid, receiverUid, message)
 
-                    messageAdapter = MessageAdapter2(this, messageList, senderNickName)
+                    messageAdapter = MessageAdapter2(this, messageList, senderUid)
                     //리사이클러뷰
                     binding.recyclerMessages.layoutManager = LinearLayoutManager(this)
                     binding.recyclerMessages.adapter = messageAdapter
@@ -93,10 +98,10 @@ class ChatActivity : AppCompatActivity() {
                     binding.btnSubmit.setOnClickListener {
                         val message = binding.edtMessage.text.toString()
                         if (roomId == "-1") {
-                            val roomid = createChatRoom(senderNickName, receiverNickName, message)
+                            val roomid = createChatRoom(senderUid, receiverUid, message)
                             receiveMessages(roomid, messageList, messageAdapter)
                         } else {
-                            sendMessage(roomId, senderNickName, message)
+                            sendMessage(roomId, senderUid, message)
                             // 메시지 수신 및 RecyclerView 업데이트
                             receiveMessages(roomId, messageList, messageAdapter)
                         }
@@ -224,5 +229,12 @@ class ChatActivity : AppCompatActivity() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
+    //이메일에서 특수문자 제거 하는 함수
+    fun removeSpecialCharacters(email: String): String {
+        return email.replace("[@.]".toRegex(), "")
+    }
+
+
 }
 

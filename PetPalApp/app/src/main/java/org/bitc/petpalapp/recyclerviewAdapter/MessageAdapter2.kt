@@ -12,10 +12,10 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class MessageAdapter2(private val context: Context, private val messageList: MutableList<Messages>, senderNickName: String) :
+class MessageAdapter2(private val context: Context, private val messageList: MutableList<Messages>, senderUid: String) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val senderNickName = senderNickName
+    private val senderUid = senderUid
     private val receive = 1 // 받는 타입
     private val send = 2 // 보내는 타입
 
@@ -50,7 +50,7 @@ class MessageAdapter2(private val context: Context, private val messageList: Mut
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (messageList[position].senderId == senderNickName) {
+        return if (messageList[position].senderId == senderUid) {
             send
         } else {
             receive

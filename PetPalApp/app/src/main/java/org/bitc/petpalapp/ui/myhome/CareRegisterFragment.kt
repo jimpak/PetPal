@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.databinding.FragmentCareRegisterBinding
 import org.bitc.petpalapp.model.PetsitterItem
@@ -88,9 +89,14 @@ class CareRegisterFragment : Fragment() {
             .addOnSuccessListener { documentReference ->
                 val docId = documentReference.id
                 Log.d("Firestore", "Document added with ID: $docId")
+                Toast.makeText(requireContext(), "등록 완료!", Toast.LENGTH_SHORT)
+
+                val fragmentManager = requireActivity().supportFragmentManager
+                fragmentManager.popBackStack()
             }
             .addOnFailureListener {
                 Log.d("fail", "data save error", it)
+                Toast.makeText(requireContext(), "등록 실패ㅠㅠ", Toast.LENGTH_SHORT)
             }
     }
 }

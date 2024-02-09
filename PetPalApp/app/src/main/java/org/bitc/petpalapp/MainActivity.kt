@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         myCheckPermission(this)
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),1)
 
-        myCheckPermission(this)
+
 
         val navView: BottomNavigationView = binding.navView
 

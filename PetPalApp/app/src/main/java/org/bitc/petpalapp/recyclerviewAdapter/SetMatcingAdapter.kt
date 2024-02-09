@@ -52,6 +52,7 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
         // 데이터를 가져온 이후에 intent 생성 및 전달
         val intent = Intent(context, ChatActivity::class.java)
         //넘길 데이터
+        intent.putExtra("applieremail", applierId)
         intent.putExtra("appliernickname", appliernickname)
         intent.putExtra("petsitternickname", petsitternickname)
         intent.putExtra("petsttteruid", petsitterId)
@@ -90,7 +91,7 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
                         }
                     }
 
-                    val imgRef = MyApplication.storage.reference.child("images/${userdocid}.jpg")
+                    val imgRef = MyApplication.storage.reference.child("userimages/${userdocid}.jpg")
                     imgRef.downloadUrl.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Glide.with(context)

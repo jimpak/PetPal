@@ -25,6 +25,7 @@ class MatchingAdapter(val context: Context, val itemList: MutableList<Applicatio
     lateinit var petsitternickname: String
     lateinit var usersdocId: String
     lateinit var appliernickname: String
+    lateinit var applierId: String
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GetMacthingViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -41,6 +42,7 @@ class MatchingAdapter(val context: Context, val itemList: MutableList<Applicatio
         petsitternickname = data.petsitterNickname.toString()
         usersdocId = data.applierId.toString()
         appliernickname = data.applierNickname.toString()
+        applierId = data.applierId.toString()
 
 
 
@@ -58,7 +60,7 @@ class MatchingAdapter(val context: Context, val itemList: MutableList<Applicatio
                         val user = document.toObject(UserInfo::class.java)
                     }
 
-                    val imgRef = MyApplication.storage.reference.child("images/${usersdocId}.jpg")
+                    val imgRef = MyApplication.storage.reference.child("userimages/${usersdocId}.jpg")
                     imgRef.downloadUrl.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Glide.with(context)
@@ -75,6 +77,7 @@ class MatchingAdapter(val context: Context, val itemList: MutableList<Applicatio
             getOpenChatroom.setOnClickListener {
                 val intent = Intent(context, ChatActivity::class.java)
                 //넘길 데이터
+                intent.putExtra("applieremail", applierId)
                 intent.putExtra("appliernickname", appliernickname)
                 intent.putExtra("petsitternickname", petsitternickname)
                 intent.putExtra("petsttteruid", petsitterId)

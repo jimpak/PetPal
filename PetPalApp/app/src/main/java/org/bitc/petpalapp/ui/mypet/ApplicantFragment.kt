@@ -84,7 +84,7 @@ class ApplicantFragment : Fragment() {
                     }
 
                     //펫시터의 프로필 이미지 넣기
-                    val imgRef = MyApplication.storage.reference.child("images/${userdocid}.jpg")
+                    val imgRef = MyApplication.storage.reference.child("userimages/${userdocid}.jpg")
                     imgRef.downloadUrl.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Glide.with(requireContext())

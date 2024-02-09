@@ -12,23 +12,11 @@
             android:id="@+id/recevier_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-            android:id="@+id/imgbtn_quit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_TItle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txt_TItle"
-             />
 
     <TextView
             android:id="@+id/textView2"
@@ -36,13 +24,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:text="오늘"
             app:layout_constraintEnd_toStartOf="@+id/divider_right"
             app:layout_constraintStart_toEndOf="@+id/divider_left"
-            app:layout_constraintTop_toBottomOf="@+id/txt_TItle" />
+            app:layout_constraintTop_toBottomOf="@+id/recevier_name" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/divider_left"

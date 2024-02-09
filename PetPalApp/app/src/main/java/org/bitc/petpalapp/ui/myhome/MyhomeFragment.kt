@@ -69,15 +69,25 @@ class MyhomeFragment : Fragment() {
                     binding.txAddress.setText(item.address)
                     binding.txEmail.setText(item.email)
 
-                    val imgRef =
-                        MyApplication.storage.reference.child("images/${item.docId}.jpg")
+                    // 전달된 데이터 확인
+                    val imagePath = arguments?.getString("imagePath")
 
-                    imgRef.downloadUrl.addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Glide
-                                .with(requireContext())
-                                .load(task.result)
-                                .into(binding.profileImage)
+                    // imagePath를 사용하여 UI 업데이트
+                    if (!imagePath.isNullOrEmpty()) {
+                        Glide.with(requireContext())
+                            .load(imagePath)
+                            .into(binding.profileImage)
+                    }else{
+                        val imgRef =
+                            MyApplication.storage.reference.child("userimages/${item.docId}.jpg")
+
+                        imgRef.downloadUrl.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Glide
+                                    .with(requireContext())
+                                    .load(task.result)
+                                    .into(binding.profileImage)
+                            }
                         }
                     }
                 }
