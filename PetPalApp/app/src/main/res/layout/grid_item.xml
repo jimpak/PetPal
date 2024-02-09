@@ -4,15 +4,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-    <ImageView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:id="@+id/petstar_img" />
-
-    <TextView
-            android:id="@+id/petstar_title"
+    <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="match_parent"
+            android:rowCount="3">
+
+
+        <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/petstar_img" />
+
+        <TextView
+                android:id="@+id/petstar_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+    </GridLayout>
 </LinearLayout>

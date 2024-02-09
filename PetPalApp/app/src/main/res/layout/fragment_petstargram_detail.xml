@@ -13,15 +13,49 @@
             android:layout_weight="1"
             android:text="뒤로가기" />
 
-    <androidx.recyclerview.widget.RecyclerView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/petdetail_Recyclerview"
-            tools:context=".ui.petstargram.PetstargramdetailFragment" />
+            android:layout_height="50dp">
+        <ImageView
+                android:id="@+id/petstargram_detail"
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="7.5dp"/>
+
+        <TextView
+                android:id="@+id/detail_profile"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="username" />
+    </LinearLayout>
+    <ImageView
+            android:id="@+id/detail_petstarImg"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="fitXY"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        <ImageView
+                android:id="@+id/detail_like_bin"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_favorite_border"/>
+
+        <TextView
+                android:id="@+id/detail_likecount"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="like 0"/>
+
+    </LinearLayout>
+    <TextView
+            android:id="@+id/detail_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Explain content"/>
+
 
 
 </LinearLayout>
-

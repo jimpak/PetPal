@@ -14,6 +14,8 @@
             tools:layout="@layout/fragment_petstargram_test">
         <action android:id="@+id/action_petstarmain_to_insert"
                 app:destination="@+id/petstar_insert"/>
+        <action android:id="@+id/action_petstarImg_detail"
+            app:destination="@+id/petstarImg_detail"/>
     </fragment>
 
     <fragment
@@ -21,6 +23,11 @@
             android:name="org.bitc.petpalapp.ui.petstargram.PetstarWriteFragment"
             android:label="펫스타그램 입력창"
             tools:layout="@layout/fragment_petstar_write" />
+    <fragment
+        android:id="@+id/petstarImg_detail"
+        android:name="org.bitc.petpalapp.ui.petstargram.DetailFragment"
+        android:label="펫스타그램 상세보기"
+        tools:layout="@layout/fragment_petstargram_detail"/>
 
     <fragment
             android:id="@+id/navigation_mypet"
