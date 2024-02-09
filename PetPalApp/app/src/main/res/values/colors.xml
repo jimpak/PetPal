@@ -17,6 +17,7 @@
         <color name="secondary_text">#757575</color>
         <color name="icons">#FFFFFF</color>
         <color name="divider">#788BCA</color>
+        <color name="notificationBadgeColor">#FF0000</color>
 
 
 </resources>

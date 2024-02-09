@@ -1,11 +1,27 @@
 package org.bitc.petpalapp
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.RemoteInput
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.media.AudioAttributes
+import android.media.RingtoneManager
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.firebase.auth.FirebaseAuth
@@ -63,6 +79,8 @@ class ChatActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     val user = document.toObject(UserInfo::class.java)
+
+
                     //넘어온 데이터 변수에 담기
                     senderNickName = user.nickname.toString()
                     senderEmail= MyApplication.email.toString()
@@ -109,6 +127,8 @@ class ChatActivity : AppCompatActivity() {
                         binding.edtMessage.setText("")
                         // 키패드 숨기기
                         hideKeyboard(binding.edtMessage)
+                        // 채팅 입력 후 스크롤을 맨 아래로 이동
+                        scrollToBottom()
                     }
 
                 }
@@ -145,6 +165,12 @@ class ChatActivity : AppCompatActivity() {
                         val message = postSnapshot.getValue(Messages::class.java)
                         message?.let {
                             messageList.add(it)
+
+
+                            // 새로운 메시지가 도착할 때마다 알림 띄우기
+                            if (it.senderId != senderUid) {
+                                showNotification(it.text)
+                            }
                         }
                     }
 
@@ -235,6 +261,44 @@ class ChatActivity : AppCompatActivity() {
         return email.replace("[@.]".toRegex(), "")
     }
 
+    // RecyclerView를 맨 아래로 스크롤하는 함수
+    private fun scrollToBottom() {
+        binding.recyclerMessages.scrollToPosition(messageList.size - 1)
+    }
 
+
+    // 알림 띄우기 함수
+    private fun showNotification(message: String) {
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Android 8.0 이상인 경우 Notification Channel을 설정
+            val channelId = "channel_id"
+            val channel = NotificationChannel(
+                channelId,
+                "Channel Name",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.setShowBadge(true)
+            channel.lightColor = Color.RED
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val intent = Intent(this, ChatActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val notification = NotificationCompat.Builder(this, "channel_id")
+            .setContentTitle(receiverNickName)
+            .setContentText(message)
+            .setSmallIcon(R.drawable.petpal_small)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .build()
+
+        notificationManager.notify(1, notification)
+    }
 }
 
