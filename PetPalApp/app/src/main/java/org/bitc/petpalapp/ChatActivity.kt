@@ -73,6 +73,9 @@ class ChatActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         rdb = FirebaseDatabase.getInstance().reference
 
+        // 채팅 입력 후 스크롤을 맨 아래로 이동
+        scrollToBottom()
+
         MyApplication.db.collection("users")
             .whereEqualTo("email", MyApplication.email)
             .get()
@@ -81,13 +84,23 @@ class ChatActivity : AppCompatActivity() {
                     val user = document.toObject(UserInfo::class.java)
 
 
-                    //넘어온 데이터 변수에 담기
-                    senderNickName = user.nickname.toString()
-                    senderEmail= MyApplication.email.toString()
-                    senderUid = removeSpecialCharacters(senderEmail)
-                    receiverNickName = intent.getStringExtra("petsitternickname").toString()
-                    receiverEmail = intent.getStringExtra("petsttteruid").toString()
-                    receiverUid = removeSpecialCharacters(receiverEmail)
+                    if(!intent.getStringExtra("noti_senderEmail").isNullOrEmpty()){
+                        senderEmail = intent.getStringExtra("noti_senderEmail").toString()
+                        senderNickName = intent.getStringExtra("noti_senderNickName").toString()
+                        senderUid = removeSpecialCharacters(senderEmail)
+                        receiverEmail =  intent.getStringExtra("noti_receiverEmail").toString()
+                        receiverNickName = intent.getStringExtra("noti_receiverNickName").toString()
+                       receiverUid = removeSpecialCharacters(receiverEmail)
+                    } else{
+                        //넘어온 데이터 변수에 담기
+                        senderNickName = user.nickname.toString()
+                        senderEmail= MyApplication.email.toString()
+                        senderUid = removeSpecialCharacters(senderEmail)
+                        receiverNickName = intent.getStringExtra("petsitternickname").toString()
+                        receiverEmail = intent.getStringExtra("petsttteruid").toString()
+                        receiverUid = removeSpecialCharacters(receiverEmail)
+
+                    }
 
                     if (senderEmail==receiverEmail){
                         receiverNickName = intent.getStringExtra("appliernickname").toString()
@@ -104,6 +117,7 @@ class ChatActivity : AppCompatActivity() {
                     //리사이클러뷰
                     binding.recyclerMessages.layoutManager = LinearLayoutManager(this)
                     binding.recyclerMessages.adapter = messageAdapter
+                    scrollToBottom()
 
                     Log.d("Uid", "$receiverUid")
 
@@ -127,8 +141,7 @@ class ChatActivity : AppCompatActivity() {
                         binding.edtMessage.setText("")
                         // 키패드 숨기기
                         hideKeyboard(binding.edtMessage)
-                        // 채팅 입력 후 스크롤을 맨 아래로 이동
-                        scrollToBottom()
+
                     }
 
                 }
@@ -286,6 +299,12 @@ class ChatActivity : AppCompatActivity() {
         }
 
         val intent = Intent(this, ChatActivity::class.java)
+        intent.putExtra("noti_senderEmail", MyApplication.email.toString())
+        intent.putExtra("noti_senderNickName", senderNickName)
+        intent.putExtra("noti_receiverNickName", receiverNickName)
+        intent.putExtra("noti_receiverEmail", receiverEmail)
+
+
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
         )
