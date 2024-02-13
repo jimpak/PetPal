@@ -2,13 +2,17 @@ package org.bitc.petpalapp.recyclerviewAdapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.bitc.petpalapp.ChatActivity
 import org.bitc.petpalapp.MyApplication
+import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.MachingItemBinding
 
 import org.bitc.petpalapp.model.PetsitterItem
@@ -37,6 +41,7 @@ class PetsiiterAdapter(
             machingNickname.text = "${data.petsitternickname}"
             machingType.text=data.caretype
             machingType.text = data.caretype
+            itemview.background= ContextCompat.getDrawable(context, R.drawable.item_background)
         }
 
 
@@ -54,6 +59,28 @@ class PetsiiterAdapter(
             }
 
 
+        }
+    }
+}
+
+
+// ItemDecoration 클래스 생성
+class ItemDecorator(private val space: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        val position = parent.getChildAdapterPosition(view)
+        if (position != RecyclerView.NO_POSITION) {
+            // 아이템의 높이를 가져와서 간격을 적용
+            val itemHeight = view.height
+            val itemwWidth = view.width
+            outRect.left = space
+            outRect.right = space
+            outRect.top = space
+            outRect.bottom = space
         }
     }
 }

@@ -7,5 +7,6 @@ data class ApplicationItem(
     val applierId: String? = null,
     val applierNickname : String? = null,
     var status : String? =null,
-    val date : String? =null
+    val date : String? =null,
+    var petsitterType : String? =null
 )
