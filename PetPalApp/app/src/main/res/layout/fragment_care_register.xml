@@ -129,7 +129,6 @@
             android:layout_weight="1"
             android:ems="10"
             android:gravity="end"
-            android:hint="1마리당 가격"
             android:inputType="text" />
 
     </LinearLayout>

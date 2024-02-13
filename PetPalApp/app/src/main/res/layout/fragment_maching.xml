@@ -5,9 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
+
     tools:context=".ui.mypet.MachingFragment">
 
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/petsitter_banner"/>
+
     <androidx.recyclerview.widget.RecyclerView
+
         android:id="@+id/matcingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

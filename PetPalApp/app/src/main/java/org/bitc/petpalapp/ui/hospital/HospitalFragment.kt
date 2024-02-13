@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -20,6 +21,7 @@ import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
@@ -121,6 +123,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
             naverMap.addOnCameraIdleListener(this)
 
             hospitalList?.let { showHospitalsInVisibleRegion(it) }
+
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -158,7 +161,25 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
         return true
     }
 
-    // 마커
+    private fun createInfoWindow(hospital: HospitalModel): InfoWindow {
+        return InfoWindow().apply {
+            adapter = object : InfoWindow.DefaultViewAdapter(requireContext()) {
+                override fun getContentView(infoWindow: InfoWindow): View {
+                    val contentView = LayoutInflater.from(context).inflate(R.layout.info_window_layout, null)
+
+                    val hospitalNameTextView = contentView.findViewById<TextView>(R.id.hospital_name)
+                    val hospitalPhoneTextView = contentView.findViewById<TextView>(R.id.hospital_phone)
+
+                    hospitalNameTextView.text = hospital.animal_hospital
+                    hospitalPhoneTextView.text = hospital.tel
+
+                    return contentView
+                }
+            }
+        }
+    }
+
+
     private fun addHospitalMarkers(hospitals: List<HospitalModel>?) {
         Log.d("hospital", "Trying to add markers. Hospitals: $hospitals")
 
@@ -170,9 +191,26 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
             Log.d("hospital", "Adding marker for hospital: ${hospital.animal_hospital}")
             val marker = Marker()
             marker.position = LatLng(hospital.lat, hospital.lon)
+            marker.tag = hospital
             marker.map = naverMap
             marker.captionText = hospital.animal_hospital
             marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_blue)
+
+            // infoWindow
+            marker.setOnClickListener {
+                val hospitalModel = marker.tag as? HospitalModel
+                hospitalModel?.let {
+
+                    // 병원 정보를 표시하는 정보 창 열기
+                    val infoWindow = createInfoWindow(it)
+                    if (marker.infoWindow == null) {
+                        infoWindow.open(marker)
+                    } else {
+                        marker.infoWindow?.close()
+                    }
+                }
+                true
+            }
 
             markerList.add(marker)
             Log.d("hospital", "Added marker for hospital: ${hospital.animal_hospital}")

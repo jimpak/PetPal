@@ -34,14 +34,25 @@ class HospitalAdapter(val context: Context, val hospitals: List<HospitalModel>?,
             binding.tel.text = it.tel
         }
 
-        binding.btnMoveDetail.setOnClickListener {
+        holder.binding.btnMoveDetail.setOnClickListener {
+            navigateToDetailScreen(position)
+        }
+
+        holder.binding.animalHospital.setOnClickListener {
+            navigateToDetailScreen(position)
+        }
+    }
+
+
+    private fun navigateToDetailScreen(position: Int) {
+        if (position != RecyclerView.NO_POSITION) {
             val hospital = hospitals?.get(position)
             val hno = hospital?.hno ?: 0
 
             val bundle = Bundle()
             bundle.putLong("hno", hno)
 
-            val navController = holder.navController
+            // 디테일 화면으로 이동
             navController.navigate(R.id.action_hospital_to_detail, bundle)
         }
     }

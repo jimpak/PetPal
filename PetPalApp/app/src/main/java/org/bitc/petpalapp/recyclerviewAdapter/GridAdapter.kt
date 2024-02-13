@@ -10,11 +10,16 @@ import com.bumptech.glide.Glide
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.databinding.GridItemBinding
 import org.bitc.petpalapp.model.PetstargamItem
+import org.bitc.petpalapp.ui.mypet.util.OnItemClickListener
 
 
 class GridViewHolder(val binding: GridItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-class GridAdapter(val context: Context, val itemList: MutableList<PetstargamItem>) :
+class GridAdapter(
+    val context: Context,
+    val itemList: MutableList<PetstargamItem>,
+    val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<GridViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GridViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -38,10 +43,9 @@ class GridAdapter(val context: Context, val itemList: MutableList<PetstargamItem
             }
         }
 
-//        holder.binding.root.setOnClickListener {
-//
-//
-//        }
+        holder.binding.root.setOnClickListener {
+            listener.onItemClick(data.docId)
+        }
     }
 }
 

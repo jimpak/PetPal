@@ -26,7 +26,7 @@ class MatchingAdapter(val context: Context, val itemList: MutableList<Applicatio
     lateinit var usersdocId: String
     lateinit var appliernickname: String
     lateinit var applierId: String
-
+    lateinit var petsitterType: String
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GetMacthingViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return GetMacthingViewHolder(GetMatchingItemBinding.inflate(layoutInflater))
@@ -43,12 +43,15 @@ class MatchingAdapter(val context: Context, val itemList: MutableList<Applicatio
         usersdocId = data.applierId.toString()
         appliernickname = data.applierNickname.toString()
         applierId = data.applierId.toString()
+        petsitterType = data.petsitterType.toString()
 
 
 
         holder.binding.run {
             getMachingNickname.text = "${data.petsitterNickname}"
             getMachingStauts.text = "${data.status}"
+            getMachingType.setText(petsitterType)
+
 
 
             MyApplication.db.collection("users")
