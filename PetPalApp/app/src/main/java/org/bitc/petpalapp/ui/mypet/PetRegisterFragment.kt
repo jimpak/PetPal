@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -79,9 +80,10 @@ class PetRegisterFragment : Fragment() {
         binding.btnPetregister.setOnClickListener {
             saveStor()
             //등록 완료 후 뒤로가기
-            val fragmentManager = requireActivity().supportFragmentManager
-            fragmentManager.popBackStack()
+            //val fragmentManager = requireActivity().supportFragmentManager
+            //fragmentManager.popBackStack()
 
+            findNavController().navigate(R.id.action_MypetRegister_to_mypet)
         }
     }
 
@@ -116,7 +118,7 @@ class PetRegisterFragment : Fragment() {
         val file= Uri.fromFile(File(filePath))
         imgRef.putFile(file) //파일 업로드
             .addOnSuccessListener {
-
+                setFragmentResult("requestKey", bundleOf("petImageRegister" to true))
             }
             .addOnFailureListener{
                 Log.d("kkang","file save error", it)

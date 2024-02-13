@@ -37,11 +37,18 @@
             android:label="마이펫"
             tools:layout="@layout/fragment_mypet">
         <action
-                android:id="@+id/action_mypetFragment_to_petregiFragment"
-                app:destination="@id/mypet_reigster" />
+                android:id="@+id/action_mypetFragment_to_petsitterregFragment"
+                app:destination="@id/care_register" />
         <action
-                android:id="@+id/action_myFragment_to_detailFragment"
-                app:destination="@id/mypet_detail" />
+                android:id="@+id/action_mypetFragment_to_petsitterListFragment"
+                app:destination="@id/petsitter_list" />
+
+        <action android:id="@+id/action_myFragment_to_petstarInsert"
+                app:destination="@+id/petstar_insert"/>
+
+        <action android:id="@+id/action_myFragment_to_detailFragment"
+                app:destination="@+id/mypet_detail"/>
+
     </fragment>
 
 
@@ -78,7 +85,11 @@
             android:id="@+id/mypet_reigster"
             android:name="org.bitc.petpalapp.ui.mypet.PetRegisterFragment"
             android:label="마이펫 등록"
-            tools:layout="@layout/fragment_pet_register" />
+            tools:layout="@layout/fragment_pet_register" >
+        <action
+                android:id="@+id/action_MypetRegister_to_mypet"
+                app:destination="@id/navigation_mypet" />
+    </fragment>
 
     <fragment
             android:id="@+id/navigation_myhome"
@@ -134,7 +145,12 @@
             android:id="@+id/mypet_detail"
             android:name="org.bitc.petpalapp.ui.mypet.PetDetailFragment"
             android:label="마이펫 상세"
-            tools:layout="@layout/fragment_pet_detail" />
+            tools:layout="@layout/fragment_pet_detail" >
+        <action
+                android:id="@+id/action_Mypetdetail_to_mypet"
+                app:destination="@id/navigation_mypet" />
+
+    </fragment>
 
     <fragment
             android:id="@+id/petstar_detailtest"
