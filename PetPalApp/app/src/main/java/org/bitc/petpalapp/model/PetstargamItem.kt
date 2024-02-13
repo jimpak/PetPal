@@ -6,6 +6,7 @@ data class PetstargamItem(
     var email:String?=null,
     var content:String?=null,
     var date:String?=null,
-    var goodCount:Int=0
+    var goodCount:Int=0,
+    var gooduser:String?=null
 
 )

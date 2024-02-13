@@ -6,42 +6,70 @@
         android:orientation="vertical"
         android:layout_margin="3dp">
 
-
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp">
+        <ImageView
+                android:id="@+id/petstargram_detail"
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="7.5dp"/>
         <TextView
                 android:id="@+id/detail_profile"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
                 android:text="username" />
+    </LinearLayout>
 
     <ImageView
             android:id="@+id/detail_petstarImg"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="250dp"
-            android:scaleType="fitXY"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitXY" />
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp">
         <ImageView
                 android:id="@+id/detail_like_bin"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/ic_favorite_border"/>
 
         <TextView
                 android:id="@+id/detail_likecount"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="50dp"
+                android:textSize="20sp"
+                android:layout_gravity="center_vertical"
                 android:text="like 0"/>
 
     </LinearLayout>
+
     <TextView
             android:id="@+id/detail_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Explain content"/>
+            android:textSize="30sp"
+            android:text="Explain content" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:src="@drawable/freeinstagram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:clickable="true"
+            android:id="@+id/backPetstar"
+            android:layout_weight="1" />
 
 
 </LinearLayout>

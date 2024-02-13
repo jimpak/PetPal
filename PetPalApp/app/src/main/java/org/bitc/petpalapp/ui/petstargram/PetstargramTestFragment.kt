@@ -74,7 +74,6 @@ class PetstargramTestFragment : Fragment(), OnItemClickListener {
                     for (document in result) {
                         val item = document.toObject(PetstargamItem::class.java)
                         item.docId = document.id
-                        Log.d("여기는 들어왔나","${item.email},${item.content}")
                         itemList.add(item)
                     }
                     binding.petstarRecyclerView.layoutManager =GridLayoutManager(requireContext(), 3)
