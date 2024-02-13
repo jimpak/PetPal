@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,9 +20,10 @@ import org.bitc.petpalapp.model.PetstargamItem
 import org.bitc.petpalapp.recyclerviewAdapter.GridAdapter
 import org.bitc.petpalapp.recyclerviewAdapter.setMatchingAdapter
 import org.bitc.petpalapp.ui.mypet.PetData
+import org.bitc.petpalapp.ui.mypet.util.OnItemClickListener
 import org.bitc.petpalapp.ui.mypet.utils.MyAdapter
 
-class PetstargramTestFragment : Fragment() {
+class PetstargramTestFragment : Fragment(), OnItemClickListener {
     private var _binding: FragmentPetstargramTestBinding? = null
     private val binding get() = _binding!!
 
@@ -76,7 +78,7 @@ class PetstargramTestFragment : Fragment() {
                     }
                     binding.petstarRecyclerView.layoutManager =GridLayoutManager(requireContext(), 3)
                     binding.petstarRecyclerView.adapter =
-                        GridAdapter(requireContext(), itemList)
+                        GridAdapter(requireContext(), itemList, this)
                     binding.petstarRecyclerView.addItemDecoration(
                         DividerItemDecoration(
                             requireContext(),
@@ -88,6 +90,13 @@ class PetstargramTestFragment : Fragment() {
                     Log.d("kkang", "error..getting document..", exception)
                 }
 
+    }
+
+    override fun onItemClick(docId: String?) {
+
+        val bundle = bundleOf("docId" to docId)
+
+        findNavController().navigate(R.id.action_petstarImg_detailtest, bundle)
     }
 
 }

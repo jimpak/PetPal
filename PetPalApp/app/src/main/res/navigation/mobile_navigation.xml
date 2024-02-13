@@ -16,6 +16,8 @@
                 app:destination="@+id/petstar_insert"/>
         <action android:id="@+id/action_petstarImg_detail"
             app:destination="@+id/petstarImg_detail"/>
+        \   <action android:id="@+id/action_petstarImg_detailtest"
+            app:destination="@+id/petstar_detailtest"/>
     </fragment>
 
     <fragment
@@ -133,6 +135,12 @@
             android:name="org.bitc.petpalapp.ui.mypet.PetDetailFragment"
             android:label="마이펫 상세"
             tools:layout="@layout/fragment_pet_detail" />
+
+    <fragment
+            android:id="@+id/petstar_detailtest"
+            android:name="org.bitc.petpalapp.ui.petstargram.DetailTestFragment"
+            android:label="마이펫 상세"
+            tools:layout="@layout/fragment_detail_test" />
 
 
     <!--    <fragment-->
