@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,80 +9,34 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="20dp"
+            android:padding="12dp"
+            android:background="@drawable/doground"
             android:orientation="vertical">
 
-        <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="마이펫리스트" />
-
         <LinearLayout
+                android:id="@+id/mypetBackgroud"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dp"
+                android:layout_marginTop="122dp"
                 android:orientation="horizontal">
 
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/petRecyclerView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp">
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/petRecyclerView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-            </androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout>
+                </androidx.recyclerview.widget.RecyclerView>
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:padding="5dp"
-                android:orientation="horizontal">
-
-
-            <Button
-                    android:id="@+id/btnMypet1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="12sp"
-                    android:layout_marginRight="3dp"
-                    android:text="test" />
-
-            <Button
-                    android:id="@+id/btnMypet2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="12sp"
-                    android:layout_marginRight="3dp"
-                    android:text="매칭" />
-
-            <Button
-                    android:id="@+id/btnMypet3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="3dp"
-                    android:textSize="12sp"
-                    android:text="매칭List" />
-
-            <Button
-                    android:id="@+id/btnMypet4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="12sp"
-                    android:text="공지사항" />
         </LinearLayout>
 
 
-        <!--        반려동물등록-->
+
+        <!--돌봄 등록-->
 
         <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="10dp"
+                app:cardElevation="5dp"
                 app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -99,18 +53,18 @@
                         android:orientation="vertical">
 
                     <TextView
-                            android:id="@+id/tvMypetRegi"
+                            android:id="@+id/tvPetsitter_Rig"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="내 반려동물 등록"
+                            android:text="내 돌봄 등록"
                             android:layout_marginBottom="10dp"
                             android:textStyle="bold" />
 
                     <TextView
-                            android:id="@+id/tvMypetRegiEx"
+                            android:id="@+id/tvPetsitterrig_Ex"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="내 반려동물을 등록하고 \n관리하세요" />
+                            android:text="내 돌봄 정보를 등록하고 \n관리하세요" />
 
                 </LinearLayout>
 
@@ -120,14 +74,14 @@
                         android:orientation="vertical">
 
                     <ImageView
-                            android:id="@+id/petimo"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:id="@+id/petsitterRigimg"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:background="#99ccff"
                             android:src="@drawable/dog1" />
 
                     <Button
-                            android:id="@+id/petInsert"
+                            android:id="@+id/petsitterRig"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -138,12 +92,75 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <!--돌봄 list-->
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:id="@+id/tvPetsitter_List"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="내 돌봄 리스트"
+                            android:layout_marginBottom="10dp"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:id="@+id/tvPetsitter_Ex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="내 돌봄 정보를 확인하고 \n관리하세요" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <ImageView
+                            android:id="@+id/PetsitteListimg"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="#ffc0cb"
+                            android:src="@drawable/dog2" />
+
+                    <Button
+                            android:id="@+id/petsitterList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="등록" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <!--펫스타그램-->
 
         <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="10dp"
+                app:cardElevation="5dp"
                 app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -182,10 +199,11 @@
 
                     <ImageView
                             android:id="@+id/starimo"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
-                            android:background="#ffc0cb"
-                            android:src="@drawable/dog2" />
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="#E0F9B5"
+                            android:padding="3dp"
+                            android:src="@drawable/dog3" />
 
                     <Button
                             android:id="@+id/starInsert"
@@ -200,8 +218,25 @@
 
         </androidx.cardview.widget.CardView>
 
-
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/mypetAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+            android:backgroundTint="#EFA5A5"
+            app:rippleColor="@color/white"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:text="마이펫 등록하기"
+            android:textColor="@color/white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="13dp" />
 
-</FrameLayout>
+</RelativeLayout>

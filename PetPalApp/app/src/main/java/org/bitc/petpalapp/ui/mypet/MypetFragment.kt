@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.bitc.petpalapp.MyApplication
@@ -36,13 +37,37 @@ class MypetFragment : Fragment(), OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setFragmentResultListener("requestKey") { _, result ->
+            if (result.getBoolean("petImageUpdated", false)) {
+                makeRecyclerView()
+            }
+        }
+
+        setFragmentResultListener("requestKey") { _, result ->
+            if (result.getBoolean("petImageRegister", false)) {
+                makeRecyclerView()
+            }
+        }
+
         makeRecyclerView()
 
-        binding.petInsert.setOnClickListener {
-            findNavController().navigate(R.id.action_mypetFragment_to_petregiFragment)
+        binding.petsitterRig.setOnClickListener {
+            findNavController().navigate(R.id.action_mypetFragment_to_petsitterregFragment)
         }
-    }
 
+        binding.petsitterList.setOnClickListener {
+            findNavController().navigate(R.id.action_mypetFragment_to_petsitterListFragment)
+        }
+
+        binding.starInsert.setOnClickListener {
+            findNavController().navigate(R.id.action_myFragment_to_petstarInsert)
+        }
+
+        binding.mypetAdd.setOnClickListener{
+            findNavController().navigate(R.id.mypet_reigster)
+        }
+
+    }
 
     fun makeRecyclerView() {
         MyApplication.db.collection("pets")
@@ -55,6 +80,11 @@ class MypetFragment : Fragment(), OnItemClickListener {
                     item.petId = document.id
                     itemList.add(item)
                 }
+                if (itemList.isNullOrEmpty()){
+                    binding.mypetBackgroud.setBackgroundResource(R.drawable.mypet)
+                }
+                val imagePath = arguments?.getString("imagePath").toString()
+
                 binding.petRecyclerView.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 binding.petRecyclerView.adapter =

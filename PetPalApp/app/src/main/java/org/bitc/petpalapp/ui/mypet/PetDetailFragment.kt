@@ -1,5 +1,6 @@
 package org.bitc.petpalapp.ui.mypet
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build.VERSION_CODES.R
@@ -14,6 +15,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.flow.callbackFlow
@@ -49,6 +53,23 @@ class PetDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val requestLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data: Intent? = result.data
+                    data?.data?.let { uri ->
+                        filePath = getRealPathFromURI(uri)
+                        Log.d("aaa", "filePath : $filePath")
+                        Glide
+                            .with(requireActivity())
+                            .load(uri)
+                            .apply(RequestOptions().override(150, 150))
+                            .centerCrop()
+                            .into(binding.imageView)
+                    }
+                }
+            }
 
         // 프래그먼트로 전달된 데이터를 Bundle에서 꺼내기
         petId = arguments?.getString("petId").toString()
@@ -94,6 +115,57 @@ class PetDetailFragment : Fragment() {
                                 .into(binding.imageView)
                         }
                     }
+
+                    binding.btnChangeImage.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_PICK)
+                        intent.setDataAndType(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            "image/*"
+                        )
+                        requestLauncher.launch(intent)
+                    }
+
+                    binding.btnModify.setOnClickListener {
+                        val pet = mapOf(
+                            "email" to MyApplication.email,
+                            "petname" to binding.editTextText.text.toString(),
+                            "gender" to if (binding.genRadioButton.isChecked) "남아" else "여아",
+                            "type" to binding.editType.text.toString(),
+                            "birthday" to binding.editBirth.text.toString(),
+                            "weight" to binding.editWeight.text.toString(),
+                            "neutered" to if (binding.genRadioButton.isChecked) "했어요" else "안했어요",
+                            "hospital" to binding.editHospital.text.toString()
+                        )
+
+                        MyApplication.db.collection("pets")
+                            .document(petId)
+                            .set(pet)
+                            .addOnSuccessListener {
+                                Log.d("bbbbbb", "modify : $petId")
+                                uploadImage(petId)
+
+                                val bundle = Bundle().apply {
+                                    putString("imagePath", filePath)
+                                }
+                                findNavController().navigate(org.bitc.petpalapp.R.id.action_Mypetdetail_to_mypet, bundle)
+                            }
+                            .addOnFailureListener {
+                                Log.d("aaaaaaaaa", "data save error", it)
+                            }
+                        val fragmentManager = requireActivity().supportFragmentManager
+
+                        Toast.makeText(requireContext(),"수정 완료!",Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.btnDelete.setOnClickListener {
+                        deleteDate(petId)
+
+                        val fragmentManager = requireActivity().supportFragmentManager
+
+                        fragmentManager.popBackStack()
+
+                        Toast.makeText(requireContext(),"삭제 완료!",Toast.LENGTH_SHORT).show()
+                    }
                 }
                 .addOnFailureListener {Exception ->
                     Log.d("bbb", "오류", Exception)
@@ -104,53 +176,6 @@ class PetDetailFragment : Fragment() {
             Log.d("aaaaaa","No Received petId")
         }
 
-        val requestLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                Glide
-                    .with(requireActivity())
-                    .load(it.data?.data)
-                    .apply(RequestOptions().override(150, 150))
-                    .centerCrop()
-                    .into(binding.imageView)
-
-                val cursor = requireActivity().contentResolver.query(
-                    it.data?.data as Uri, arrayOf<String>(
-                        MediaStore.Images.Media.DATA
-                    ), null, null, null
-                )
-                cursor?.moveToFirst().let {
-                    filePath = cursor?.getString(0) as String
-                }
-                Log.d("aaa", "filePath : $filePath")
-            }
-
-        binding.btnChangeImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.setDataAndType(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                "image/*"
-            )
-            requestLauncher.launch(intent)
-        }
-
-        binding.btnModify.setOnClickListener {
-
-            val fragmentManager = requireActivity().supportFragmentManager
-
-            fragmentManager.popBackStack()
-            modifyStor()
-            Toast.makeText(requireContext(),"수정 완료!",Toast.LENGTH_SHORT).show()
-        }
-
-        binding.btnDelete.setOnClickListener {
-            deleteDate(petId)
-
-            val fragmentManager = requireActivity().supportFragmentManager
-
-            fragmentManager.popBackStack()
-
-            Toast.makeText(requireContext(),"삭제 완료!",Toast.LENGTH_SHORT).show()
-        }
     }
 
     fun modifyStor() {
@@ -187,6 +212,7 @@ class PetDetailFragment : Fragment() {
         imgRef.putFile(file) //파일 업로드
             .addOnSuccessListener {
                 Log.d("aaaaaa","이미지 수집 성공")
+                setFragmentResult("requestKey", bundleOf("petImageUpdated" to true))
             }
             .addOnFailureListener{
                 Log.d("kkang","file save error", it)
@@ -221,4 +247,16 @@ class PetDetailFragment : Fragment() {
                 Log.d("aaaaaaa","delete fail..",exception)
             }
     }
+
+    private fun getRealPathFromURI(uri: Uri): String {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = requireActivity().contentResolver.query(uri, projection, null, null, null)
+        cursor?.use {
+            val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            it.moveToFirst()
+            return it.getString(columnIndex)
+        }
+        return ""
+    }
+
 }
