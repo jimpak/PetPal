@@ -14,16 +14,19 @@
             android:id="@+id/animal_hospital"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="병원이름" />
 
-        <Button
-            android:id="@+id/btnMoveDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="상세보기"/>
+        <ImageButton
+                android:id="@+id/btnMoveDetail"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/free_icon_information_point_8517652"
+                android:background="@android:color/transparent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"/>
 
     </LinearLayout>
 
