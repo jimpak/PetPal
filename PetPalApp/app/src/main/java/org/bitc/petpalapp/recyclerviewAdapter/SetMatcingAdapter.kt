@@ -31,6 +31,7 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
     lateinit var userdocid: String
     lateinit var useraddress: String
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): setMyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return setMyViewHolder(SetMatcingItemBinding.inflate(layoutInflater))
@@ -48,6 +49,7 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
         petsitternickname = data.petsitterNickname.toString()
         applierId = data.applierId.toString()
         appliernickname = data.applierNickname.toString()
+
 
         // 데이터를 가져온 이후에 intent 생성 및 전달
         val intent = Intent(context, ChatActivity::class.java)
@@ -79,6 +81,8 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
                         setAddress.text = useraddress
                         acceptbtn.visibility =
                             if (data.status == "대기중") View.VISIBLE else View.INVISIBLE
+                        cardviewStatus.visibility =
+                            if (data.status == "수락") View.VISIBLE else View.INVISIBLE
                         accpettext.visibility =
                             if (data.status == "수락") View.VISIBLE else View.INVISIBLE
 
@@ -87,6 +91,8 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
                             holder.binding.run {
                                 acceptbtn.visibility = View.INVISIBLE
                                 accpettext.visibility = View.VISIBLE
+                                cardviewStatus.visibility = View.VISIBLE
+
                             }
                         }
                     }
@@ -118,7 +124,9 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
         // Firebase에 저장할 데이터 모델 객체 생성
         val application = ApplicationItem(
             applierId = applierId,
+            applierNickname = appliernickname,
             petsitterId = petsitterId,
+            petsitterNickname = petsitternickname,
             status = "수락",
             date = dateToString(Date())
         )

@@ -14,6 +14,7 @@ import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentMachingBinding
 import org.bitc.petpalapp.model.PetsitterItem
+import org.bitc.petpalapp.recyclerviewAdapter.ItemDecorator
 
 import org.bitc.petpalapp.ui.mypet.util.OnItemClickListener
 import org.bitc.petpalapp.recyclerviewAdapter.PetsiiterAdapter
@@ -61,10 +62,13 @@ class MachingFragment : Fragment() , OnItemClickListener {
                     Log.d("aaaa", "${item.docId}")
                     itemList.add(item)
                 }
+                val spacingInPixels = resources.getDimensionPixelSize(R.dimen.item_spacing)
+
+
                 binding.matcingRecyclerView.layoutManager= LinearLayoutManager(requireContext())
                 binding.matcingRecyclerView.adapter = PetsiiterAdapter(requireContext(), itemList, this)
-                binding.matcingRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-                )
+//                binding.matcingRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+                binding.matcingRecyclerView.addItemDecoration(ItemDecorator(spacingInPixels))
             }
             .addOnFailureListener {
                     exception -> Log.d("aaa", "서버 데이터 획득 실패", exception)

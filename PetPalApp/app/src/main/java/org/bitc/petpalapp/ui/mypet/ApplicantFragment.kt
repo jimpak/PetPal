@@ -28,6 +28,7 @@ class ApplicantFragment : Fragment() {
     private var userdocid: String? = null
     private var petsitternickname: String? = null
     private var appliernickname: String? = null
+    private var petsitterType: String? = null
 
     lateinit var docId: String
     private val binding get() = _binding!!
@@ -61,6 +62,7 @@ class ApplicantFragment : Fragment() {
                     userdocid = item?.userdocid
                     petsitternickname = item?.petsitternickname
                     petsitterId = item?.petsitterId
+                    petsitterType = item?.caretype
 
                     //view에 데이터 넣기
                     binding.tvresultNickname.setText(item?.petsitternickname)
@@ -159,6 +161,7 @@ class ApplicantFragment : Fragment() {
             applierNickname = appliernickname,
             petsitterId = petsitterId,
             petsitterNickname = petsitternickname,
+            petsitterType = petsitterType,
             status = "대기중",
             date = dateToString(Date())
         )

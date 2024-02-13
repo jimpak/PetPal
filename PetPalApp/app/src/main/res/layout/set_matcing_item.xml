@@ -1,88 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:padding="10dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp">
+            android:layout_marginTop="15dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cardCornerRadius="75dp"
+            app:cardMaxElevation="5sp">
 
 
         <ImageView
-            android:id="@+id/set_matchingImageView"
-            android:layout_width="105dp"
-            android:layout_height="105dp"/>
+                android:id="@+id/set_matchingImageView"
+                android:layout_width="80dp"
+                android:scaleType="centerCrop"
+                android:layout_height="80dp" />
 
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/set_matching_nickname"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="20sp"
-            android:text="TextView" />
+            android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/set_address"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="16sp"
-                android:text="사는곳" />
+                    android:id="@+id/set_matching_nickname"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+
+                    android:textSize="20sp"
+                    android:text="TextView" />
+
             <ImageButton
                     android:id="@+id/set_open_chatroom"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
                     android:background="#ffffff"
                     android:scaleType="fitXY"
-                    android:layout_marginRight="10dp"
+                    android:src="@drawable/bubble_chat" />
 
-                    android:src="@drawable/bubble_chat"/>
+        </LinearLayout>
 
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="#ffffff"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                android:orientation="horizontal">
 
-                android:layout_gravity="right">
-
-                <TextView
-                    android:layout_gravity="center"
-                    android:id="@+id/accpettext"
-                    android:layout_width="wrap_content"
+            <TextView
+                    android:id="@+id/set_address"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="10dp"
                     android:textSize="16sp"
-                    android:text="매칭완료"
-                    android:visibility="invisible"/>
+                    android:text="사는곳" />
+
+
+            <FrameLayout
+                    android:layout_marginLeft="50dp"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                        android:id="@+id/cardview_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="#ffffff"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp"
+                        android:visibility="invisible"
+                        android:layout_gravity="right">
+
+                    <TextView
+                            android:layout_gravity="center"
+                            android:id="@+id/accpettext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:textSize="16sp"
+                            android:text="매칭완료"
+                            android:visibility="invisible" />
+
+                </androidx.cardview.widget.CardView>
+
                 <Button
-                    android:id="@+id/acceptbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수락"
-                    android:visibility="invisible"/>
-            </androidx.cardview.widget.CardView>
+                        android:id="@+id/acceptbtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="수락"
+                        android:visibility="invisible" />
+
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 
