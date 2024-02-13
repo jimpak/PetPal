@@ -21,6 +21,7 @@ import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentPetstarWriteBinding
 import org.bitc.petpalapp.databinding.FragmentPetstargramTestBinding
+import org.bitc.petpalapp.model.UserInfo
 import org.bitc.petpalapp.recyclerviewAdapter.GridAdapter
 import java.io.File
 import java.text.SimpleDateFormat
@@ -105,6 +106,37 @@ class PetstarWriteFragment : Fragment() {
             .add(petstar)
             .addOnSuccessListener {
                 uploadImage(it.id)
+
+                // users 컬렉션에서 email 필드가 userEmail과 일치하는 문서 찾기
+                val userDocRef = MyApplication.db.collection("users").whereEqualTo("email", MyApplication.email)
+
+                userDocRef.get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            val user = document.toObject(UserInfo::class.java)
+                            // 문서를 찾았을 경우 업데이트할 필드 설정
+                            val newData = hashMapOf(
+                                "point" to (user.point?.plus(20) ?: 20),
+                                "petstarcount" to (user.petstarcount?.plus(1) ?: 1)
+                            )
+
+                            // 문서 업데이트
+                            document.reference.update(newData as Map<String, Any>)
+                                .addOnSuccessListener {
+                                    // 업데이트 성공
+                                    println("DocumentSnapshot successfully updated!")
+                                }
+                                .addOnFailureListener { e ->
+                                    // 업데이트 실패
+                                    println("Error updating document: $e")
+                                }
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        // 문서 조회 실패
+                        println("Error getting documents: $exception")
+                    }
+
             }
             .addOnFailureListener {
                 Log.d("aaaaaaaaa", "data save error", it)

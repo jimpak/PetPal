@@ -24,11 +24,12 @@ import com.bumptech.glide.request.RequestOptions
 import org.bitc.petpalapp.MyApplication
 import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentPetRegisterBinding
+
 import java.io.File
 import java.util.Date
 
 class PetRegisterFragment : Fragment() {
-    lateinit var binding:FragmentPetRegisterBinding
+    lateinit var binding: FragmentPetRegisterBinding
     lateinit var filePath:String
 
     companion object {

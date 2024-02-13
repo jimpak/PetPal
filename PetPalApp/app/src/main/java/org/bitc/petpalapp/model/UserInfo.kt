@@ -8,4 +8,7 @@ class UserInfo {
     var mypr: String? = null
     var phone: String? = null
     var address: String? = null
+    var petsittercount=0
+    var petstarcount: Long? = null
+    var point = 0
 }

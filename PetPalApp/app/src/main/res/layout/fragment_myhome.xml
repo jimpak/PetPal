@@ -1,373 +1,417 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".ui.myhome.MyhomeFragment">
+        android:layout_height="match_parent">
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="115dp">
-        <androidx.cardview.widget.CardView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:cardCornerRadius="75dp"
-                app:cardMaxElevation="5sp">
-
-            <ImageView
-                    android:id="@+id/profileImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    tools:src="@tools:sample/avatars" />
-
-        </androidx.cardview.widget.CardView>
-
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+            tools:context=".ui.myhome.MyhomeFragment">
 
         <LinearLayout
-                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingLeft="14dp">
+                android:layout_height="115dp">
+            <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cardCornerRadius="75dp"
+                    app:cardMaxElevation="5sp">
 
-            <TextView
-                    android:id="@+id/tx_nickname"
+                <ImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:src="@tools:sample/avatars" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
                     android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="닉네임"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="14dp">
+
+                <TextView
+                        android:id="@+id/tx_nickname"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="닉네임"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                <TextView
+                        android:id="@+id/tx_name"
+                        android:text="사용자명"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                <TextView
+                        android:id="@+id/tx_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="이메일"
+                        android:textSize="14sp" />
+
+
+
+                <TextView
+                        android:id="@+id/tx_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="주소"
+                        android:textSize="14sp" />
+            </LinearLayout>
+
+            <Button
+                    android:id="@+id/btn_re"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="수정"
+                    android:textSize="13sp" />
+
+        </LinearLayout>
+
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingVertical="2dp"
+                android:text="자기소개"
+                android:textSize="14sp" />
+
+
+        <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="20dp"
+                android:background="#e9ecef"
+                android:columnCount="3"
+                android:orientation="vertical"
+                android:rowCount="2">
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_rowWeight="1"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center|bottom"
+                    android:text="돌봄횟수" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_rowWeight="1"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center|bottom"
+                    android:text="글쓴횟수" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_rowWeight="1"
+                    android:layout_column="2"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center|bottom"
+                    android:text="포인트" />
+
+            <TextView
+                    android:id="@+id/result_petsittercount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_rowWeight="1"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center|top"
+                    android:text="0건"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
             <TextView
-                    android:id="@+id/tx_name"
-                    android:text="사용자명"
-                    android:layout_width="match_parent"
+                    android:id="@+id/result_petstarcount"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:layout_row="1"
+                    android:layout_rowWeight="1"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center|top"
+                    android:text="0건"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <TextView
-                    android:id="@+id/tx_email"
-                    android:layout_width="match_parent"
+                    android:id="@+id/result_point"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이메일"
-                    android:textSize="14sp" />
+                    android:layout_row="1"
+                    android:layout_rowWeight="1"
+                    android:layout_column="2"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center|top"
+                    android:text="0건"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
+        </GridLayout>
 
-
-            <TextView
-                    android:id="@+id/tx_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="주소"
-                    android:textSize="14sp" />
-        </LinearLayout>
-
-        <Button
-                android:id="@+id/btn_re"
+        <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="수정"
-                android:textSize="13sp" />
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:text="✏️ 나의 일정"/>
+
+
+            <CalendarView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/calendarView" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/calendarView"/>
+
+
+        </LinearLayout>
+
+
+<!--        <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="50dp"-->
+<!--                android:text="돌봄 가능 요일/시간"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold" />-->
+
+
+<!--        <GridLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="#e9ecef"-->
+<!--                android:columnCount="7"-->
+<!--                android:orientation="vertical"-->
+<!--                android:rowCount="2">-->
+
+<!--            <CheckBox-->
+<!--                    android:id="@+id/check_box1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:background="@drawable/baseline_account_box_24"-->
+<!--                    android:button="@null" />-->
+
+<!--            <CheckBox-->
+<!--                    android:id="@+id/check_box2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:background="@drawable/baseline_account_box_24"-->
+<!--                    android:button="@null" />-->
+
+<!--            <CheckBox-->
+<!--                    android:id="@+id/check_box3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="2"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:background="@drawable/baseline_account_box_24"-->
+<!--                    android:button="@null" />-->
+
+<!--            <CheckBox-->
+<!--                    android:id="@+id/check_box4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="3"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:background="@drawable/baseline_account_box_24"-->
+<!--                    android:button="@null" />-->
+
+<!--            <CheckBox-->
+<!--                    android:id="@+id/check_box5"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="4"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:background="@drawable/baseline_account_box_24"-->
+<!--                    android:button="@null" />-->
+
+<!--            <CheckBox-->
+<!--                    android:id="@+id/check_box6"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="5"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:background="@drawable/baseline_account_box_24"-->
+<!--                    android:button="@null" />-->
+
+<!--            <CheckBox-->
+<!--                    android:id="@+id/check_box7"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="6"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:background="@drawable/baseline_account_box_24"-->
+<!--                    android:button="@null" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="0"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_gravity="center|bottom"-->
+<!--                    android:text="월" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_gravity="center|bottom"-->
+<!--                    android:text="화" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="2"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_gravity="center|bottom"-->
+<!--                    android:text="수" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="3"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_gravity="center|top"-->
+<!--                    android:text="목" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="4"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_gravity="center|top"-->
+<!--                    android:text="금" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="5"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_gravity="center|top"-->
+<!--                    android:text="토" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_row="1"-->
+<!--                    android:layout_rowWeight="1"-->
+<!--                    android:layout_column="6"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    android:layout_gravity="center|top"-->
+<!--                    android:text="일" />-->
+
+<!--        </GridLayout>-->
+
+
+
+<!--        <FrameLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginTop="20dp">-->
+
+<!--            <LinearLayout-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:layout_gravity="bottom|end"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                <Button-->
+<!--                        android:id="@+id/btnpetsitterlist"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginRight="8dp"-->
+<!--                        android:text="돌봄 받기" />-->
+
+<!--                <Button-->
+<!--                        android:backgroundTint="@color/teal_200"-->
+<!--                        android:id="@+id/btnRegiPetsitter"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="펫시터 지원" />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </FrameLayout>-->
+
 
     </LinearLayout>
 
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingVertical="2dp"
-            android:text="자기소개"
-            android:textSize="14sp" />
-
-
-    <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginTop="20dp"
-            android:background="#e9ecef"
-            android:columnCount="3"
-            android:orientation="vertical"
-            android:rowCount="2">
-
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|bottom"
-                android:text="돌봄횟수" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|bottom"
-                android:text="글쓴횟수" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|bottom"
-                android:text="팔로우" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|top"
-                android:text="0건"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|top"
-                android:text="0건"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|top"
-                android:text="0건"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-    </GridLayout>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="돌봄 가능 요일/시간"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-
-    <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#e9ecef"
-            android:columnCount="7"
-            android:orientation="vertical"
-            android:rowCount="2">
-
-        <CheckBox
-                android:id="@+id/check_box1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:background="@drawable/baseline_account_box_24"
-                android:button="@null" />
-
-        <CheckBox
-                android:id="@+id/check_box2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:background="@drawable/baseline_account_box_24"
-                android:button="@null" />
-
-        <CheckBox
-                android:id="@+id/check_box3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:background="@drawable/baseline_account_box_24"
-                android:button="@null" />
-
-        <CheckBox
-                android:id="@+id/check_box4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="3"
-                android:layout_columnWeight="1"
-                android:background="@drawable/baseline_account_box_24"
-                android:button="@null" />
-
-        <CheckBox
-                android:id="@+id/check_box5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="4"
-                android:layout_columnWeight="1"
-                android:background="@drawable/baseline_account_box_24"
-                android:button="@null" />
-
-        <CheckBox
-                android:id="@+id/check_box6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="5"
-                android:layout_columnWeight="1"
-                android:background="@drawable/baseline_account_box_24"
-                android:button="@null" />
-
-        <CheckBox
-                android:id="@+id/check_box7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="6"
-                android:layout_columnWeight="1"
-                android:background="@drawable/baseline_account_box_24"
-                android:button="@null" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|bottom"
-                android:text="월" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|bottom"
-                android:text="화" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|bottom"
-                android:text="수" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="3"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|top"
-                android:text="목" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="4"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|top"
-                android:text="금" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="5"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|top"
-                android:text="토" />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_rowWeight="1"
-                android:layout_column="6"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center|top"
-                android:text="일" />
-
-    </GridLayout>
-
-
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp">
-
-        <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_gravity="bottom|end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <Button
-                    android:id="@+id/btnpetsitterlist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="8dp"
-                    android:text="돌봄 받기" />
-
-            <Button
-                    android:backgroundTint="@color/teal_200"
-                    android:id="@+id/btnRegiPetsitter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="펫시터 지원" />
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

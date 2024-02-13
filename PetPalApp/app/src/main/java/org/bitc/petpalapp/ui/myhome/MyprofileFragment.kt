@@ -113,11 +113,11 @@ class MyprofileFragment : Fragment() {
                             "username" to username,
                             "mypr" to mypr,
                             "phone" to phone,
-                            "address" to address,
+                            "address" to address
                         )
 
                         MyApplication.db.collection("users").document(docId)
-                            .set(data)
+                            .update(data)
                             .addOnSuccessListener {
                                 Toast.makeText(requireContext(), "수정 완료!", Toast.LENGTH_SHORT)
                                     .show()
