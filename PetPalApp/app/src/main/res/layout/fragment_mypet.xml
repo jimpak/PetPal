@@ -18,6 +18,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_marginTop="122dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -69,14 +71,15 @@
                 </LinearLayout>
 
                 <LinearLayout
+                        android:padding="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                     <ImageView
                             android:id="@+id/petsitterRigimg"
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
+                            android:layout_width="73dp"
+                            android:layout_height="70dp"
                             android:background="#99ccff"
                             android:src="@drawable/dog1" />
 
@@ -131,14 +134,15 @@
                 </LinearLayout>
 
                 <LinearLayout
+                        android:padding="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                     <ImageView
                             android:id="@+id/PetsitteListimg"
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
+                            android:layout_width="73dp"
+                            android:layout_height="70dp"
                             android:background="#ffc0cb"
                             android:src="@drawable/dog2" />
 
@@ -193,14 +197,15 @@
                 </LinearLayout>
 
                 <LinearLayout
+                        android:padding="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                     <ImageView
                             android:id="@+id/starimo"
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
+                            android:layout_width="73dp"
+                            android:layout_height="70dp"
                             android:background="#E0F9B5"
                             android:padding="3dp"
                             android:src="@drawable/dog3" />

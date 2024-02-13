@@ -81,7 +81,7 @@ class MypetFragment : Fragment(), OnItemClickListener {
                     itemList.add(item)
                 }
                 if (itemList.isNullOrEmpty()){
-                    binding.mypetBackgroud.setBackgroundResource(R.drawable.mypet)
+                    binding.mypetBackgroud.setBackgroundResource(R.drawable.dogbanner)
                 }
                 val imagePath = arguments?.getString("imagePath").toString()
 
