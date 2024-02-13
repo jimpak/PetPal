@@ -213,7 +213,7 @@
         android:id="@+id/btnRegiPetsitter2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="돌보미 등록" />
+        android:text="펫시터 등록" />
 
 
 </LinearLayout>

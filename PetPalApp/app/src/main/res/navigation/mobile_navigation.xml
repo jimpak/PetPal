@@ -16,7 +16,7 @@
                 app:destination="@+id/petstar_insert"/>
         <action android:id="@+id/action_petstarImg_detail"
             app:destination="@+id/petstarImg_detail"/>
-        \   <action android:id="@+id/action_petstarImg_detailtest"
+          <action android:id="@+id/action_petstarImg_detailtest"
             app:destination="@+id/petstar_detailtest"/>
     </fragment>
 
@@ -62,7 +62,7 @@
     <fragment
             android:id="@+id/navigation_maching"
             android:name="org.bitc.petpalapp.ui.mypet.MachingFragment"
-            android:label="돌보미리스트"
+            android:label="펫시터리스트"
             tools:layout="@layout/fragment_maching" />
 
     <fragment
@@ -111,14 +111,14 @@
     <fragment
             android:id="@+id/care_register"
             android:name="org.bitc.petpalapp.ui.myhome.CareRegisterFragment"
-            android:label="돌보미 등록"
+            android:label="펫시터 등록"
             tools:layout="@layout/fragment_care_register" />
 
 
     <fragment
             android:id="@+id/petsitter_list"
             android:name="org.bitc.petpalapp.ui.mypet.MachingFragment"
-            android:label="돌보미 리스트"
+            android:label="펫시터 리스트"
             tools:layout="@layout/fragment_maching">
         <action
                 android:id="@+id/action_matchingFragment_to_petsitterDetailFragment"
@@ -128,7 +128,7 @@
     <fragment
             android:id="@+id/petsitter_detail"
             android:name="org.bitc.petpalapp.ui.mypet.ApplicantFragment"
-            android:label="돌보미 상세페이지"
+            android:label="펫시터 상세페이지"
             tools:layout="@layout/fragment_applicant" />
 
     <fragment

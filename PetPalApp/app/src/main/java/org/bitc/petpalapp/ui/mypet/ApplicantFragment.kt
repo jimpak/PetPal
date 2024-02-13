@@ -1,6 +1,8 @@
 package org.bitc.petpalapp.ui.mypet
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -8,13 +10,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 
 
 import com.bumptech.glide.Glide
 import org.bitc.petpalapp.ChatActivity
 import org.bitc.petpalapp.MyApplication
+import org.bitc.petpalapp.R
 import org.bitc.petpalapp.databinding.FragmentApplicantBinding
 import org.bitc.petpalapp.model.UserInfo
 import org.bitc.petpalapp.model.PetsitterItem
@@ -29,9 +35,13 @@ class ApplicantFragment : Fragment() {
     private var petsitternickname: String? = null
     private var appliernickname: String? = null
     private var petsitterType: String? = null
+    private var phoneNumber: String? = null
 
     lateinit var docId: String
     private val binding get() = _binding!!
+
+    private val CALL_PHONE_PERMISSION_REQUEST_CODE = 123
+    private val SEND_SMS_PERMISSION_REQUEST_CODE = 456
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,6 +105,25 @@ class ApplicantFragment : Fragment() {
                         }
                     }
 
+                     phoneNumber = item?.phone.toString()
+                    binding.opneCall.setOnClickListener(View.OnClickListener {
+                        // 전화 거는 이벤트
+                        if (isCallPhonePermissionGranted()) {
+                            makePhoneCall(phoneNumber!!)
+                        } else {
+                            requestCallPhonePermission()
+                        }
+                    })
+
+                    binding.openMessage.setOnClickListener {
+                        // 문자 메시지 보내기 이벤트
+                        if (isSendSmsPermissionGranted()) {
+                            sendSms()
+                        } else {
+                            requestSendSmsPermission()
+                        }
+                    }
+
                 }
 
                 .addOnFailureListener { Exception ->
@@ -107,7 +136,7 @@ class ApplicantFragment : Fragment() {
         }
 
 
-        //돌보미 받기 신청
+        //펫시터 받기 신청
         binding.addFab.setOnClickListener {
             saveApplication()
             Toast.makeText(requireContext(), "신청 완료!!", Toast.LENGTH_SHORT).show()
@@ -182,6 +211,89 @@ class ApplicantFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun isCallPhonePermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.CALL_PHONE
+        ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun requestCallPhonePermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(android.Manifest.permission.CALL_PHONE),
+            CALL_PHONE_PERMISSION_REQUEST_CODE
+        )
+    }
+
+    private fun makePhoneCall(phoneNumber: String) {
+        val callIntent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber"))
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.CALL_PHONE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            startActivity(callIntent)
+        } else {
+            // 권한이 없는 경우
+            requestCallPhonePermission()
+        }
+    }
+
+
+    // SMS 전송 권한이 있는지 확인하는 함수
+    private fun isSendSmsPermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.SEND_SMS
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    // SMS 전송 권한을 요청하는 함수
+    private fun requestSendSmsPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(android.Manifest.permission.SEND_SMS),
+            SEND_SMS_PERMISSION_REQUEST_CODE
+        )
+    }
+
+    // SMS를 보내는 함수
+    private fun sendSms() {
+        val smsIntent = Intent(Intent.ACTION_SENDTO)
+        smsIntent.data = Uri.parse("smsto:$phoneNumber")
+        smsIntent.putExtra("sms_body", "안녕하세요, 문자 메시지 내용을 입력하세요.")
+        startActivity(smsIntent)
+    }
+
+
+    // 권한 요청 결과 처리
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            SEND_SMS_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 사용자가 SMS 전송 권한을 허용한 경우
+                    sendSms()
+                } else {
+                    // 사용자가 SMS 전송 권한을 거부한 경우
+                    Toast.makeText(
+                        requireContext(),
+                        "SMS 전송 권한이 필요합니다.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            // 다른 권한에 대한 처리도 추가 가능
+        }
     }
 
     fun dateToString(date: Date): String {
