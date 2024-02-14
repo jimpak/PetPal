@@ -10,7 +10,7 @@
     <fragment
             android:id="@+id/navigation_petstargramtest"
             android:name="org.bitc.petpalapp.ui.petstargram.PetstargramTestFragment"
-            android:label="펫스타그램 테스트"
+            android:label="펫스타그램"
             tools:layout="@layout/fragment_petstargram_test">
         <action android:id="@+id/action_petstarmain_to_insert"
                 app:destination="@+id/petstar_insert"/>
