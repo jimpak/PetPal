@@ -29,6 +29,7 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
     lateinit var petsitternickname: String
     lateinit var appliernickname: String
     lateinit var userdocid: String
+    lateinit var petsitterType: String
     lateinit var useraddress: String
 
 
@@ -49,7 +50,7 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
         petsitternickname = data.petsitterNickname.toString()
         applierId = data.applierId.toString()
         appliernickname = data.applierNickname.toString()
-
+        petsitterType = data.petsitterType.toString()
 
         // 데이터를 가져온 이후에 intent 생성 및 전달
         val intent = Intent(context, ChatActivity::class.java)
@@ -128,6 +129,7 @@ class setMatchingAdapter(val context: Context, val itemList: MutableList<Applica
             petsitterId = petsitterId,
             petsitterNickname = petsitternickname,
             status = "수락",
+            petsitterType = petsitterType,
             date = dateToString(Date())
         )
         // Firebase에 저장
