@@ -48,6 +48,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
     private var markerList: MutableList<Marker> = mutableListOf()
     private lateinit var naverMap: NaverMap
 
+    // 위치 권한 요청을 위한 런처
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
@@ -66,9 +67,11 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
         _binding = FragmentHospitalBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // 위치 권한 확인 및 요청
         if (!hasPermission()) {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         } else {
+            // 권한이 이미 승인되었으면 지도 초기화
             initMapView()
         }
 
@@ -78,6 +81,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
     override fun onStart() {
         super.onStart()
 
+        // Retrofit을 활용하여 병원 목록 가져오기
         val networkService = (requireContext().applicationContext as MyApplication).networkService
         val hospitalListCall = networkService.getHospitalList()
 
@@ -91,14 +95,6 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
                         response.body()?.let { hospitalListModel ->
                             hospitalList = hospitalListModel.hospitals
                             Log.d("hospitalList", "$hospitalList")
-
-                            val adapter = HospitalAdapter(requireContext(), hospitalList, findNavController())
-
-                            binding.hospitalRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-                            binding.hospitalRecyclerView.adapter = adapter
-                            binding.hospitalRecyclerView.addItemDecoration(
-                                DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-                            )
                         }
                     }
                 }
@@ -122,9 +118,8 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
 
             naverMap.addOnCameraIdleListener(this)
 
-            hospitalList?.let { showHospitalsInVisibleRegion(it) }
-
         } else {
+            // 권한이 없으면 권한 요청
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 permissions,
@@ -161,6 +156,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
         return true
     }
 
+    // InfoWindow 생성
     private fun createInfoWindow(hospital: HospitalModel): InfoWindow {
         return InfoWindow().apply {
             adapter = object : InfoWindow.DefaultViewAdapter(requireContext()) {
@@ -180,6 +176,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
     }
 
 
+    // 지도에 병원 마커 추가
     private fun addHospitalMarkers(hospitals: List<HospitalModel>?) {
         Log.d("hospital", "Trying to add markers. Hospitals: $hospitals")
 
@@ -217,7 +214,7 @@ class HospitalFragment : Fragment(), OnMapReadyCallback, NaverMap.OnCameraIdleLi
         }
     }
 
-
+    // 지도에 보이는 화면에만 병원정보 표시
     private fun showHospitalsInVisibleRegion(hospitals: List<HospitalModel>) {
         val visibleRegionBounds = naverMap.contentBounds
         Log.d("hospital", "Bounds: $visibleRegionBounds")
